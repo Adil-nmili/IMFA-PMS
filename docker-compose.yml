@@ -1,0 +1,16 @@
+version: "3.9"
+services:
+  frontend:
+    build:
+      context: ./IMFA-PMS
+      dockerfile: Dockerfile
+    container_name: IMFA_PMS
+    ports:
+      - "5173:5173"
+    environment:
+      - VITE_SUPABASE_URL=${VITE_SUPABASE_URL}
+      - VITE_SUPABASE_ANON_KEY=${VITE_SUPABASE_ANON_KEY}
+    volumes:
+      - ./IMFA-PMS:/app
+      - /app/node_modules
+    command: ["npm", "run", "dev"]
