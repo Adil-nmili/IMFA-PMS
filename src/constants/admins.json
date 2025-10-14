@@ -1,0 +1,47 @@
+[
+  {
+    "id": 1,
+    "name": "Meryem Zahiri",
+    "email": "meryem.zahiri@example.com",
+    "phone": "+212600334455",
+    "role": "admin",
+    "username": "mzahiri",
+    "image": "https://randomuser.me/api/portraits/women/33.jpg"
+  },
+  {
+    "id": 2,
+    "name": "Rachid Idrissi",
+    "email": "rachid.idrissi@example.com",
+    "phone": "+212611445566",
+    "role": "admin",
+    "username": "ridrissi",
+    "image": "https://randomuser.me/api/portraits/men/21.jpg"
+  },
+  {
+    "id": 3,
+    "name": "Fatima Zahra El Alaoui",
+    "email": "fatima.elalaoui@example.com",
+    "phone": "+212622556677",
+    "role": "admin",
+    "username": "fzlalaoui",
+    "image": "https://randomuser.me/api/portraits/women/12.jpg"
+  },
+  {
+    "id": 4,
+    "name": "Omar Bouzid",
+    "email": "omar.bouzid@example.com",
+    "phone": "+212633667788",
+    "role": "admin",
+    "username": "obouzid",
+    "image": "https://randomuser.me/api/portraits/men/45.jpg"
+  },
+  {
+    "id": 5,
+    "name": "Imane Rami",
+    "email": "imane.rami@example.com",
+    "phone": "+212644778899",
+    "role": "admin",
+    "username": "irami",
+    "image": "https://randomuser.me/api/portraits/women/54.jpg"
+  }
+]

@@ -1,0 +1,47 @@
+[
+  {
+    "id": 1,
+    "name": "Nadia Karimi",
+    "email": "nadia.karimi@example.com",
+    "phone": "+212600889900",
+    "role": "receptionist",
+    "username": "nkarimi",
+    "image": "https://randomuser.me/api/portraits/women/39.jpg"
+  },
+  {
+    "id": 2,
+    "name": "Hassan Mouline",
+    "email": "hassan.mouline@example.com",
+    "phone": "+212611990011",
+    "role": "receptionist",
+    "username": "hmouline",
+    "image": "https://randomuser.me/api/portraits/men/26.jpg"
+  },
+  {
+    "id": 3,
+    "name": "Samira Bakkali",
+    "email": "samira.bakkali@example.com",
+    "phone": "+212622001122",
+    "role": "receptionist",
+    "username": "sbakkali",
+    "image": "https://randomuser.me/api/portraits/women/19.jpg"
+  },
+  {
+    "id": 4,
+    "name": "Ali Lahlou",
+    "email": "ali.lahlou@example.com",
+    "phone": "+212633112233",
+    "role": "receptionist",
+    "username": "alahlou",
+    "image": "https://randomuser.me/api/portraits/men/58.jpg"
+  },
+  {
+    "id": 5,
+    "name": "Zineb Chafi",
+    "email": "zineb.chafi@example.com",
+    "phone": "+212644223344",
+    "role": "receptionist",
+    "username": "zchafi",
+    "image": "https://randomuser.me/api/portraits/women/48.jpg"
+  }
+]

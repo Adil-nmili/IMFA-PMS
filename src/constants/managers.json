@@ -1,0 +1,47 @@
+[
+  {
+    "id": 1,
+    "name": "Ahmed El Fassi",
+    "email": "ahmed.elfassi@example.com",
+    "phone": "+212600112233",
+    "role": "manager",
+    "username": "aelfassi",
+    "image": "https://randomuser.me/api/portraits/men/32.jpg"
+  },
+  {
+    "id": 2,
+    "name": "Sara Benali",
+    "email": "sara.benali@example.com",
+    "phone": "+212611223344",
+    "role": "manager",
+    "username": "sbenali",
+    "image": "https://randomuser.me/api/portraits/women/44.jpg"
+  },
+  {
+    "id": 3,
+    "name": "Youssef Amrani",
+    "email": "youssef.amrani@example.com",
+    "phone": "+212622334455",
+    "role": "manager",
+    "username": "yamrani",
+    "image": "https://randomuser.me/api/portraits/men/28.jpg"
+  },
+  {
+    "id": 4,
+    "name": "Lina Othmani",
+    "email": "lina.othmani@example.com",
+    "phone": "+212633445566",
+    "role": "manager",
+    "username": "lothmani",
+    "image": "https://randomuser.me/api/portraits/women/68.jpg"
+  },
+  {
+    "id": 5,
+    "name": "Khalid Berrada",
+    "email": "khalid.berrada@example.com",
+    "phone": "+212644556677",
+    "role": "manager",
+    "username": "kberrada",
+    "image": "https://randomuser.me/api/portraits/men/75.jpg"
+  }
+]
