@@ -21,7 +21,7 @@ const useAppState = create<AppState>((set) => ({
     //actions
     setIsAuthenticated: (isAuthenticated) => set({ isAuthenticated }),
     login: (user, token) => set({ user, token, isAuthenticated: true }),
-    logout: () => set({ user: null, token: null, isAuthenticated: false }),
+    logout: () => {set({ user: null, token: null, isAuthenticated: false });localStorage?.removeItem("access_token")},
 
 
 }));

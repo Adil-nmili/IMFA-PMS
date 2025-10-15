@@ -1,8 +1,6 @@
 export interface UserType {
-  id: number;
-  name: string;
-  email: string;
-  phone: string;
+  [x: string]: Key | null | undefined;
+  nomEmp: string;
   role: string;
   image: string;
 }

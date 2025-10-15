@@ -1,12 +1,12 @@
 import UserLogin from "@/components/partials/loginComponents/userLogin";
 import RolesSlider from "@/components/partials/slides/RolesSlider";
 import type { UserType } from "@/types/UserType";
-import { useState } from "react"
+import {  useState } from "react"
 import { Link } from "react-router-dom"
 
 function Login() {
   const [selectedUser,setSelectedUser] = useState<UserType | null>(null);
-  
+
   return (
     <div className="h-screen items-center grid grid-cols-1 md:grid-cols-2 font-inria">
       
