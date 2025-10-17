@@ -26,7 +26,7 @@ const SideBar = () => {
   ];
 
   return (
-<div className="pl-6 pt-4.5"> 
+<div className="pl-1 pt-2"> 
     <div
       className={`flex flex-col h-[95vh] bg-[#3b2f2f] text-gray-100 p-3 rounded-2xl font-roboto transition-all duration-300 overflow-hidden ${isOpen ? "w-[200px]" : "w-[70px]"
         }`} onMouseEnter={() => setIsOpen(true)}
