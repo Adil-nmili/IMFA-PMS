@@ -1,9 +1,8 @@
 import React, { useState } from "react";
-import { FaBed,FaSignOutAlt,FaWallet,FaCog,FaCheckCircle,} from "react-icons/fa";
-import { HiMenuAlt2 } from "react-icons/hi";
-import { BsCalendarCheck } from "react-icons/bs";
-import Logo from "../assets/hotelLogo.png";
+import Logo from "../../assets/hotelLogo.png";
+import {Bed, LogOut,Wallet, Cog, CheckCircle, MenuSquare,CalendarCheck} from 'lucide-react'
 import { Link } from "react-router-dom";
+import { ACCUEIL, RESERVATIONS } from "@/router/router";
 
 interface MenuItem {
   icon: React.ComponentType<{ className?: string }>;
@@ -14,16 +13,16 @@ const SideBar = () => {
   const [isOpen, setIsOpen] = useState<boolean>(false);
  
   const topMenuItems: MenuItem[] = [
-    { icon: HiMenuAlt2, name: "Dashboard",path:"/" },
-    { icon: BsCalendarCheck, name: "Reservation" ,path:"/reservation"},
-    { icon: FaBed, name: "Rooms" ,path:""},
-    { icon: FaCheckCircle, name: "Checks",path:"" },
-    { icon: FaWallet, name: "Billing",path:"" },
+    { icon: MenuSquare, name: "Dashboard",path:ACCUEIL },
+    { icon: CalendarCheck, name: "Reservation" ,path:RESERVATIONS},
+    { icon: Bed, name: "Rooms" ,path:""},
+    { icon: CheckCircle, name: "Checks",path:"" },
+    { icon: Wallet, name: "Billing",path:"" },
   ];
 
   const bottomMenuItems: MenuItem[] = [
-    { icon: FaCog, name: "Settings",path:"" },
-    { icon: FaSignOutAlt, name: "Logout",path:"" },
+    { icon: Cog, name: "Settings",path:"" },
+    { icon: LogOut, name: "Logout",path:"" },
   ];
 
   return (

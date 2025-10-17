@@ -1,4 +1,4 @@
-import { FaSearch, FaBell } from "react-icons/fa";
+import { Search, Bell } from "lucide-react";
 // shadcn/ui
 import { Button } from "@/components/ui/button"; // shadcn/ui
 import { Input } from "@/components/ui/input"
@@ -11,7 +11,7 @@ const Header = ({ profilePicUrl }: HeaderProps) => {
     <div className="flex justify-between items-center w-[calc(100%-70px)] h-12 bg-[#E9E6E1] border border-[#958E85] rounded-lg px-6 mt-5">
       {/* Search Bar */}
      <div className="relative w-[350px] h-9 ml-auto mr-40 flex items-center">
-          <FaSearch className="absolute left-3 text-[#3F3124] w-4 h-4" />
+          <Search className="absolute left-3 text-[#3F3124] w-4 h-4" />
           <Input
             type="text"
             placeholder="Search"
@@ -24,7 +24,7 @@ const Header = ({ profilePicUrl }: HeaderProps) => {
             variant="outline"
             className="w-10 h-10 rounded-full p-0 border-2 border-[#795E46] text-[#3F3124] flex items-center justify-center"
           >
-          <FaBell className="w-5 h-5" />
+          <Bell className="w-5 h-5" />
           </Button>
           <img
             src={profilePicUrl}
