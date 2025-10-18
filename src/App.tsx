@@ -1,15 +1,16 @@
 import { RouterProvider } from "react-router-dom";
-import Router from "./router/router";
 import { Toaster } from "sonner";
+import { Router } from "./router/router";
+
+
+
 
 function App() {
   return (
     <div>
       <Toaster position="top-right" />
-
       <RouterProvider router={Router} />
     </div>
   );
 }
-
-export default App;
+export default App

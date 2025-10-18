@@ -1,18 +1,35 @@
+import Layout from "@/layout";
+import Dashboard from "@/pages/Dashboard";
+import Login from "@/pages/loginPage";
+import ReservationPage from "@/pages/reservation";
 import { createBrowserRouter } from "react-router-dom";
-import Login from '@/pages/loginPage'
-export const HOME = "/";
-export const LOGIN = "/login"
 
-const Router = createBrowserRouter([
+
+export const LOGINPAGE = "/";
+export const ACCUEIL = "/accueil";
+export const RESERVATIONS = "/reservations"
+
+
+export const Router = createBrowserRouter([
     {
-        path: HOME,
-        element: <div>Home Page</div>,
+        path: LOGINPAGE,
+        element: <Login />
     },
     {
-        path: LOGIN,
-        element: <Login/>,
-    }
-  
-]);
+        element: <Layout />,
+        children: [
+            {
+                path: ACCUEIL,
+                element: <Dashboard />
+            },
+            {
+                path: RESERVATIONS,
+                element:<ReservationPage />
+            }
+        ]
+    },
+    {
 
-export default Router;
+    }
+
+])

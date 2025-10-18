@@ -3,9 +3,15 @@ import { Button } from "@/components/ui/button";
 import { useState } from "react";
 import { toast } from "sonner";
 import useAppState from '@/stores/store'
+import { useNavigate } from "react-router-dom";
+import { ACCUEIL } from "@/router/router";
+
+
 function CodePin(nomEmp:string|any) {
   const [codePin, setCodePin] = useState<string>('');
   const [isLoading, setIsLoading] = useState(false);
+  const navigate = useNavigate()
+
   const login = useAppState((state) => state.login);
   const handleSubmitCodePin = async () => {
     if (codePin.length !== 6 || nomEmp === "") {
@@ -25,6 +31,7 @@ function CodePin(nomEmp:string|any) {
         localStorage?.setItem("access_token",tokenResponse?.session?.access_token)
           login(userResponse,tokenResponse?.session?.access_token);
           toast.success("Connexion réussie !");
+          navigate(ACCUEIL)
         }
         
       } else {
