@@ -2,12 +2,14 @@ import Layout from "@/layout";
 import Dashboard from "@/pages/Dashboard";
 import Login from "@/pages/loginPage";
 import ReservationPage from "@/pages/reservation";
+import RoomsPage from "@/pages/roomsPage";
 import { createBrowserRouter } from "react-router-dom";
 
 
 export const LOGINPAGE = "/";
 export const ACCUEIL = "/accueil";
 export const RESERVATIONS = "/reservations"
+export const ROOMS = "/rooms"
 
 
 export const Router = createBrowserRouter([
@@ -22,9 +24,13 @@ export const Router = createBrowserRouter([
                 path: ACCUEIL,
                 element: <Dashboard />
             },
-            {
+              {
                 path: RESERVATIONS,
                 element:<ReservationPage />
+            },
+            {
+                path: ROOMS,
+                element:<RoomsPage />
             }
         ]
     },
