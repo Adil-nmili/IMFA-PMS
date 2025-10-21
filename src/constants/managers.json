@@ -1,0 +1,27 @@
+[
+  {
+    "nomEmp": "Ahmed El Fassi",
+    "role": "manager",
+    "image": "https://randomuser.me/api/portraits/men/32.jpg"
+  },
+  {
+    "nomEmp": "Sara Benali",
+    "role": "manager",
+    "image": "https://randomuser.me/api/portraits/women/44.jpg"
+  },
+  {
+    "nomEmp": "Youssef Amrani",
+    "role": "manager",
+    "image": "https://randomuser.me/api/portraits/men/28.jpg"
+  },
+  {
+    "nomEmp": "Lina Othmani",
+    "role": "manager",
+    "image": "https://randomuser.me/api/portraits/women/68.jpg"
+  },
+  {
+    "nomEmp": "Khalid Berrada",
+    "role": "manager",
+    "image": "https://randomuser.me/api/portraits/men/75.jpg"
+  }
+]

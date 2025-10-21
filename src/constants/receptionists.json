@@ -1,0 +1,27 @@
+[
+  {
+    "nomEmp": "Nadia Karimi",
+    "role": "receptionist",
+    "image": "https://randomuser.me/api/portraits/women/39.jpg"
+  },
+  {
+    "nomEmp": "Hassan Mouline",
+    "role": "receptionist",
+    "image": "https://randomuser.me/api/portraits/men/26.jpg"
+  },
+  {
+    "nomEmp": "Samira Bakkali",
+    "role": "receptionist",
+    "image": "https://randomuser.me/api/portraits/women/19.jpg"
+  },
+  {
+    "nomEmp": "Ali Lahlou",
+    "role": "receptionist",
+    "image": "https://randomuser.me/api/portraits/men/58.jpg"
+  },
+  {
+    "nomEmp": "Zineb Chafi",
+    "role": "receptionist",
+    "image": "https://randomuser.me/api/portraits/women/48.jpg"
+  }
+]

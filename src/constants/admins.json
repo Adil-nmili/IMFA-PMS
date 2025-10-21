@@ -1,0 +1,27 @@
+[
+  {
+    "nomEmp": "Meryem Zahiri",
+    "role": "admin",
+    "image": "https://randomuser.me/api/portraits/women/33.jpg"
+  },
+  {
+    "nomEmp": "Adil Nmili",
+    "role": "admin",
+    "image": "https://randomuser.me/api/portraits/men/21.jpg"
+  },
+  {
+    "nomEmp": "Fatima Zahra El Alaoui",
+    "role": "admin",
+    "image": "https://randomuser.me/api/portraits/women/12.jpg"
+  },
+  {
+    "nomEmp": "Omar Bouzid",
+    "role": "admin",
+    "image": "https://randomuser.me/api/portraits/men/45.jpg"
+  },
+  {
+    "nomEmp": "Imane Rami",
+    "role": "admin",
+    "image": "https://randomuser.me/api/portraits/women/54.jpg"
+  }
+]
