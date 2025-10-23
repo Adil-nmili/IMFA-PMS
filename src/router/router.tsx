@@ -4,12 +4,15 @@ import Login from "@/pages/loginPage";
 import ReservationPage from "@/pages/reservation";
 import RoomsPage from "@/pages/roomsPage";
 import { createBrowserRouter } from "react-router-dom";
+import DetailsPage from "@/components/ui/rooms/detailsPage";
+
 
 
 export const LOGINPAGE = "/";
 export const ACCUEIL = "/accueil";
 export const RESERVATIONS = "/reservations"
 export const ROOMS = "/rooms"
+export const DETAILSPAGE="/rooms/:id"
 
 
 export const Router = createBrowserRouter([
@@ -31,7 +34,12 @@ export const Router = createBrowserRouter([
             {
                 path: ROOMS,
                 element:<RoomsPage />
+            },
+            {
+                path: DETAILSPAGE,
+                element:<DetailsPage />
             }
+            
         ]
     },
     {

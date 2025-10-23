@@ -1,21 +1,20 @@
 import React from 'react';
 import RoomHeader from '@/components/ui/rooms/roomHeader';
-import RoomFooter from '@/components/ui/rooms/roomFooter';
 import RoomsList from '@/components/ui/rooms/roomsList';
 const RoomsPage = () => {
     return (
 
-        <div className='flex h-screen gap-2 '>
-            <div className='bg-black h-full w-18'></div>
+        <div className='flex h-screen gap-1 '>
+            <div className=' h-full w-10'></div>
               
             <div className='flex flex-col flex-1 '>
-               <div className='bg-black h-16 '>
+               <div className=' h-10 '>
 
                </div>
-                <div className='flex-1 bg-red-900 mt-2 border-0 rounded-2xl'>
+                <div className='flex-1 bg-white border-1 m-0.5 border-gray-200 rounded-2xl '>
                  <RoomHeader/>
-                 <RoomsList/>
-                 <RoomFooter/>
+                 <RoomsList />
+                
                 </div>
             </div>
            
