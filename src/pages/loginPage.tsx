@@ -11,7 +11,7 @@ function Login() {
     <div className="h-screen items-center grid grid-cols-1 md:grid-cols-2 font-inria">
       
       <div className=" h-full flex items-center">
-        <RolesSlider setSelectedUser={setSelectedUser}/>
+        <RolesSlider setSelectedUser={setSelectedUser} selectedUser={null} scaleCard={undefined}/>
       </div>
       
       <div className="bg-[#967E62] h-screen flex justify-center">

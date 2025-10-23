@@ -20,7 +20,7 @@ function CodePin(nomEmp:string|any) {
       const userResponse = await loginByCodePin(codePin,nomEmp?.nomEmp);
 
       if (userResponse) {
-        const tokenResponse = await getUserToken(userResponse?.emailEmp,codePin);
+        const tokenResponse = await getUserToken(userResponse?.emailEmp,Number(userResponse?.code_pin));
         if(tokenResponse){
         localStorage?.setItem("access_token",tokenResponse?.session?.access_token)
           login(userResponse,tokenResponse?.session?.access_token);

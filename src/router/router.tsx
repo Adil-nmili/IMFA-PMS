@@ -11,6 +11,19 @@ const Router = createBrowserRouter([
     {
         path: LOGIN,
         element: <Login/>,
+    },
+    {
+        path:'/dashboard',
+        element:
+        <Protector>
+            <Layout/>
+        </Protector>,
+        children:[
+            {
+                path:'/chambres',
+                element:<Chambre/>
+            }
+        ]
     }
   
 ]);

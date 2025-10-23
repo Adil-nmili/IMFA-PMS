@@ -8,7 +8,6 @@ import UserCard from "@/components/cards/userCard";
 function UserLogin ({SelectedUser}:{SelectedUser : UserType | null}) {
     const [loginMethod,setLoginMethod] = useState<"code-pin"|"badge-nfc">("code-pin");
 
-
   const tabClass =
     "h-10 bg-[#EFEEEE] data-[state=active]:bg-[#3F3124] data-[state=active]:text-white  transition-colors cursor-pointer text-sm ";
   return (

@@ -15,9 +15,13 @@ import { getAllUsers } from "@/api/api";
 
 
 const RolesSlider: React.FC<Props> = ({ setSelectedUser }) => {
+
+  const [rolesUsers,setRolesUsers] = useState<UserType| any>([]);
+
   const getUsers = async()=>{
     const response = await getAllUsers();
-    console.log(response);  
+    console.log(response);
+    setRolesUsers(response);  
   }
   useEffect(()=>{
     getUsers();
@@ -31,9 +35,9 @@ const RolesSlider: React.FC<Props> = ({ setSelectedUser }) => {
   const [currentRole, setCurrentRole] = useState<"manager" | "admin" | "receptionist">("manager");
 
   const roles: Record<"manager" | "admin" | "receptionist", UserType[]> = {
-    manager: managers,
-    admin: admins,
-    receptionist: receptionists,
+    manager: rolesUsers?.filter((ru : any)=>(ru?.role).toLowerCase() === "manager"),
+    admin: rolesUsers?.filter((ru : any)=>(ru?.role).toLowerCase() === "admin"),
+    receptionist: rolesUsers?.filter((ru:any)=>(ru?.role).toLowerCase() === "receptioniste"),
   };
 
   const handleSlide = (
@@ -75,13 +79,25 @@ const RolesSlider: React.FC<Props> = ({ setSelectedUser }) => {
         {(["manager", "admin", "receptionist"] as const).map((role) => (
           <TabsContent key={role} value={role + "s"}>
           <div className="hidden md:flex items-center justify-center gap-4 transition-all duration-3000">
-            {[-1, 0, 1].map((offset) => {
-              const roleUsers = roles[currentRole];
-              const len = roleUsers.length;
+          {roles[currentRole]?.length > 0 && (() => {
+            const roleUsers = roles[currentRole];
+            const len = roleUsers.length;
 
+            if (len <= 2) {
+              return roleUsers.map((user) => (
+                <motion.div
+                  key={user?.id}
+                  animate={{ scale: 1.1, opacity: 1 }}
+                  transition={{ duration: 0.4 }}
+                >
+                  <UserCard selectedUser={user} setSelectedUser={setSelectedUser} scaleCard={1.1} />
+                </motion.div>
+              ));
+            }
+
+            return [-1, 0, 1].map((offset) => {
               const index = (currentIndex[currentRole] + offset + len) % len;
               const user = roleUsers[index];
-
               const scale = offset === 0 ? 1.1 : 0.9;
               const opacity = offset === 0 ? 1 : 0.6;
 
@@ -91,10 +107,12 @@ const RolesSlider: React.FC<Props> = ({ setSelectedUser }) => {
                   animate={{ scale, opacity }}
                   transition={{ duration: 0.4 }}
                 >
-                  <UserCard  selectedUser={user} setSelectedUser={setSelectedUser}  scaleCard={scale} />
+                  <UserCard selectedUser={user} setSelectedUser={setSelectedUser} scaleCard={scale} />
                 </motion.div>
               );
-            })}
+            });
+          })()}
+
           </div>
           <div className="md:hidden flex items-center justify-center gap-4">
                   <UserCard  selectedUser={roles[currentRole][currentIndex[currentRole]]} setSelectedUser={setSelectedUser}  scaleCard={1} />
