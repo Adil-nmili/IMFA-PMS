@@ -288,7 +288,7 @@ const ReservationPage = () => {
               const client: Client = clients[Reservation.clientIndex];
 
               return (
-                <div key={`client-${Reservation.idRes}`} className="bg-white rounded-2xl shadow-lg border border-[#E9E6E1] overflow-hidden">
+                <div key={Reservation.idRes} className="bg-white rounded-2xl shadow-lg border border-[#E9E6E1] overflow-hidden">
                   {/* Header */}
                   <div className="bg-gradient-to-r from-[#795E46] to-[#967E62] p-4 text-white">
                     <div className="flex items-center gap-2">
