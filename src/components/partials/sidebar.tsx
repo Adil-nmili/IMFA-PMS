@@ -10,7 +10,7 @@ interface MenuItem {
   path?:string;
 }
 const SideBar = () => {
-  const [isOpen, setIsOpen] = useState<boolean>(false);
+  const [isOpen, setIsOpen] = useState(false);
  
   const topMenuItems: MenuItem[] = [
     { icon: MenuSquare, name: "Dashboard",path:ACCUEIL },
@@ -26,9 +26,9 @@ const SideBar = () => {
   ];
 
   return (
-<div className="pl-1 pt-2"> 
+<div className="pl-1 pt-2 "> 
     <div
-      className={`flex flex-col h-[95vh] bg-[#3b2f2f] text-gray-100 p-3 rounded-2xl font-roboto transition-all duration-300 overflow-hidden ${isOpen ? "w-[200px]" : "w-[70px]"
+      className={` flex flex-col h-[95vh] bg-[#3b2f2f] text-gray-100 p-3 rounded-2xl font-roboto transition-all duration-300 overflow-hidden ${isOpen ? "w-[200px]" : "w-[70px]"
         }`} onMouseEnter={() => setIsOpen(true)}
     onMouseLeave={() => setIsOpen(false)}
      >{/* Logo */}

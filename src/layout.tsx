@@ -4,11 +4,11 @@ import SideBar from "./components/partials/sidebar";
 
 const Layout = () => {
     return (
-        <div className="flex h-screen">
+        <div className="flex h-screen ">
             <aside>
                 <SideBar />
             </aside>
-            <div className="flex-1 flex flex-col">
+            <div className="flex-1 flex flex-col ">
                 <main className="ml-4">
                     <Header />
                     {/* Page content */}

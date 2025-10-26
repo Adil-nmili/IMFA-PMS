@@ -9,7 +9,7 @@ interface HeaderProps {
 
 const Header = ({ profilePicUrl }: HeaderProps) => {
   return (
-    <div className="flex justify-between items-center w-[calc(100%-70px)] h-12 bg-[#E9E6E1] border border-[#958E85] rounded-lg px-6 mt-2">
+    <div className="fixed top-0  flex justify-between items-center w-[calc(97%-70px)] h-12 bg-[#E9E6E1] border border-[#958E85] rounded-lg px-6 mt-2 z-50 shadow-md">
       {/* searshbar */}
       <div className="relative w-[350px] h-9 flex items-center">
         <Search className="absolute left-3 text-[#3F3124] w-4 h-4" />
