@@ -2,8 +2,8 @@ import { Button } from "@/components/ui/button";
 import { ScanLine, ScanQrCode } from "lucide-react";
 import { useEffect, useRef, useState } from "react";
 import { toast } from "sonner";
-import { getUserToken, loginByRFID } from "@/api/api"; 
-import useAppState from '@/stores/store'
+import { getUserToken, loginByRFID } from "@/api/authapi"; 
+import useAppState from '@/stores/authStore'
 
 interface BadgeNfcProps {
   nomEmp?: string; 

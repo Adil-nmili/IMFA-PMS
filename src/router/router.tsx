@@ -1,31 +1,39 @@
+import GlobalModal from "@/components/shared-component/globalModal";
+import  ReservationModal  from "@/components/partials/modals/reservationModal";
+import Layout from "@/layout";
+import Dashboard from "@/pages/Dashboard";
+import Login from "@/pages/loginPage";
+import ReservationPage from "@/pages/reservation";
 import { createBrowserRouter } from "react-router-dom";
-import Login from '@/pages/loginPage'
-export const HOME = "/";
-export const LOGIN = "/login"
+export const LOGINPAGE = "/";
+export const ACCUEIL = "/accueil";
+export const RESERVATIONS = "/reservations"
 
-const Router = createBrowserRouter([
+
+export const Router = createBrowserRouter([
     {
-        path: HOME,
-        element: <div>Home Page</div>,
+        path: LOGINPAGE,
+        element: <Login />
     },
     {
-        path: LOGIN,
-        element: <Login/>,
-    },
-    {
-        path:'/dashboard',
-        element:
-        <Protector>
-            <Layout/>
-        </Protector>,
-        children:[
+        element: <Layout />,
+        children: [
+            {
+                path: ACCUEIL,
+                element: <Dashboard />
+            },
+            {
+                path: RESERVATIONS,
+                element:<ReservationPage />
+            },
             {
                 path:'/chambres',
-                element:<Chambre/>
+                element:<>CHAMBRES
+                <GlobalModal>
+                    <ReservationModal/>
+                </GlobalModal>
+                </>
             }
         ]
-    }
-  
-]);
-
-export default Router;
+    },
+])

@@ -8,9 +8,9 @@ import managers from "@/constants/managers.json";
 import admins from "@/constants/admins.json";
 import receptionists from "@/constants/receptionists.json";
 import type { UserType } from "@/types/UserType";
-import UserCard from "@/components/cards/userCard";
-import type { Props } from "@/types/props";
-import { getAllUsers } from "@/api/api";
+import UserCard from "@/components/partials/cards/userCard";
+import type { Props } from "@/types/propsType";
+import { getAllUsers } from "@/api/authapi";
 
 
 

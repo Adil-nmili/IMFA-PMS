@@ -1,3 +1,5 @@
+import type { Key } from "react";
+
 export interface UserType {
   [x: string]: Key | null | undefined;
   nomEmp: string;

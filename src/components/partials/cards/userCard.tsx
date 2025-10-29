@@ -1,7 +1,7 @@
 import {motion} from 'framer-motion'
-import { Card, CardContent } from '../ui/card'
+import { Card, CardContent } from '../../ui/card'
 import type React from 'react'
-import type { Props } from '@/types/props'
+import type { Props } from '@/types/propsType'
 
 const  UserCard : React.FC<Props>= ({scaleCard,selectedUser,setSelectedUser}) => {
   return (

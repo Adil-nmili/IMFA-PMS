@@ -1,5 +1,5 @@
+import { Router } from "@/router/router";
 import { RouterProvider } from "react-router-dom";
-import Router from "./router/router";
 import { Toaster } from "sonner";
 
 function App() {
@@ -10,5 +10,4 @@ function App() {
     </div>
   );
 }
-
-export default App;
+export default App

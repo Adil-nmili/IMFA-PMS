@@ -1,5 +1,5 @@
 import { HOME } from '@/router/router'
-import useAppState from '@/stores/store'
+import useAppState from '@/stores/authStore'
 import { Link } from 'react-router-dom'
 const Pages = () => {
     const { user, token } = useAppState((state) => state)
