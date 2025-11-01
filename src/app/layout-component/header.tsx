@@ -4,12 +4,12 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 
 interface HeaderProps {
-  profilePicUrl?: string; 
+  profilePicUrl?: string;
 }
 
 const Header = ({ profilePicUrl }: HeaderProps) => {
   return (
-    <div className="fixed top-0  flex justify-between items-center w-[calc(97%-70px)] h-12 bg-[#E9E6E1] border border-[#958E85] rounded-lg px-6 mt-2 z-50 shadow-md">
+    <div className="flex justify-end items-center w-[calc(100%-26px)] h-12 bg-[#E9E6E1] border border-[#958E85] rounded-lg px-6 mt-2">
       {/* searshbar */}
       <div className="relative w-[350px] h-9 flex items-center">
         <Search className="absolute left-3 text-[#3F3124] w-4 h-4" />
@@ -20,8 +20,8 @@ const Header = ({ profilePicUrl }: HeaderProps) => {
         />
       </div>
 
-      {/*right side*/}
-      <div className="flex items-center gap-4">
+      {/*right side div*/}
+      <div className="flex items-center gap-4 ml-25">
         {/* Darkmodetoggle*/}
         <Button
           variant="outline"
