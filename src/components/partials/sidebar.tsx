@@ -10,9 +10,9 @@ import {
   CalendarCheck,
 } from "lucide-react";
 import { Link } from "react-router-dom";
-import { ACCUEIL, RESERVATIONS } from "@/router/router";
 import { logout } from "@/api/api";
 import { useNavigate } from "react-router-dom";
+import { ACCUEIL, RESERVATIONS, ROOMS } from "@/router/router";
 
 interface MenuItem {
   icon: React.ComponentType<{ className?: string }>;
@@ -36,11 +36,11 @@ const SideBar = () => {
   };
 
   const topMenuItems: MenuItem[] = [
-    { icon: MenuSquare, name: "Dashboard", path: ACCUEIL },
-    { icon: CalendarCheck, name: "Reservation", path: RESERVATIONS },
-    { icon: Bed, name: "Rooms", path: "" },
-    { icon: CheckCircle, name: "Checks", path: "" },
-    { icon: Wallet, name: "Billing", path: "" },
+    { icon: MenuSquare, name: "Dashboard",path:ACCUEIL },
+    { icon: CalendarCheck, name: "Reservation" ,path:RESERVATIONS},
+    { icon: Bed, name: "Rooms" ,path:ROOMS},
+    { icon: CheckCircle, name: "Checks",path:"" },
+    { icon: Wallet, name: "Billing",path:"" },
   ];
 
   // Assign the logout action instead of path
