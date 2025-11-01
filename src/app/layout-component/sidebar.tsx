@@ -10,9 +10,9 @@ import {
   CalendarCheck,
 } from "lucide-react";
 import { Link } from "react-router-dom";
-import { logout } from "@/api/api";
 import { useNavigate } from "react-router-dom";
 import { ACCUEIL, RESERVATIONS, ROOMS } from "@/router/router";
+import { logout } from "@/api/authapi";
 
 interface MenuItem {
   icon: React.ComponentType<{ className?: string }>;
@@ -39,6 +39,7 @@ const SideBar = () => {
     { icon: MenuSquare, name: "Dashboard",path:ACCUEIL },
     { icon: CalendarCheck, name: "Reservation" ,path:RESERVATIONS},
     { icon: Bed, name: "Rooms" ,path:ROOMS},
+    // { icon: Bed, name: "Rooms" ,path:"chambres"},
     { icon: CheckCircle, name: "Checks",path:"" },
     { icon: Wallet, name: "Billing",path:"" },
   ];

@@ -3,11 +3,10 @@ import { useState, type JSX } from "react";
 import { Tabs, TabsList, TabsTrigger } from "@radix-ui/react-tabs";
 import CodePin from "./CodePin";
 import BadgeNfc from "./BadgeNfc";
-import UserCard from "@/components/cards/userCard";
+import UserCard from "@/components/partials/cards/userCard";
 
 function UserLogin ({SelectedUser}:{SelectedUser : UserType | null}) {
     const [loginMethod,setLoginMethod] = useState<"code-pin"|"badge-nfc">("code-pin");
-
 
   const tabClass =
     "h-10 bg-[#EFEEEE] data-[state=active]:bg-[#3F3124] data-[state=active]:text-white  transition-colors cursor-pointer text-sm ";

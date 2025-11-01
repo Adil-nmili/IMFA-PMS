@@ -1,3 +1,5 @@
+import GlobalModal from "@/components/shared-component/globalModal";
+import ReservationModal from "@/components/partials/modals/reservationModal";
 import Layout from "@/layout";
 import Dashboard from "@/pages/Dashboard";
 import Login from "@/pages/loginPage";
@@ -43,19 +45,33 @@ export const Router = createBrowserRouter([
                     },
                     {
                         path: ROOMS,
-                        element: <RoomsPage />
+                        element:
+                            <RoomsPage />
                     },
                     {
                         path: DETAILSPAGE,
                         element: <DetailsPage />
+                    },
+                    {
+                        path: RESERVATIONS,
+                        element: <ReservationPage />
+                    },
+                    {
+                        path: '/chambres',
+                        element: <>CHAMBRES
+
+                        </>
                     }
 
                 ]
             },
-            
 
-            
+
+
 
         ]
-    }
+    },
+
+
+
 ])

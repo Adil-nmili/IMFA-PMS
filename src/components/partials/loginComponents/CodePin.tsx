@@ -1,8 +1,8 @@
-import { getUserToken, loginByCodePin } from "@/api/api";
+import { getUserToken, loginByCodePin } from "@/api/authapi";
 import { Button } from "@/components/ui/button";
 import { useState } from "react";
 import { toast } from "sonner";
-import useAppState from '@/stores/store'
+import useAppState from '@/stores/authStore'
 import { useNavigate } from "react-router-dom";
 import { ACCUEIL } from "@/router/router";
 
@@ -26,7 +26,7 @@ function CodePin(nomEmp:string|any) {
       const userResponse = await loginByCodePin(codePin,nomEmp?.nomEmp);
 
       if (userResponse) {
-        const tokenResponse = await getUserToken(userResponse?.emailEmp,codePin);
+        const tokenResponse = await getUserToken(userResponse?.emailEmp,Number(userResponse?.code_pin));
         if(tokenResponse){
         localStorage?.setItem("access_token",tokenResponse?.session?.access_token)
           login(userResponse,tokenResponse?.session?.access_token);

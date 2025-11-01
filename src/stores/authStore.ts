@@ -1,14 +1,18 @@
+import type { ReservationFormValues } from "@/types/ReservationFormValuesType";
 import { create } from "zustand";
 
 interface AppState {
-  user: string | null;
-  token: string | null;
-  isAuthenticated: boolean;
-  setUser: (user: string | null) => void;
-  setToken: (token: string | null) => void;
-  setIsAuthenticated: (isAuthenticated: boolean) => void;
-  login: (user: string, token: string) => void;
-  logout: () => void;
+    user: string | null;
+    token: string | null;
+    isAuthenticated: boolean;
+    setUser: (user: string | null) => void;
+    setToken: (token: string | null) => void;
+    setIsAuthenticated: (isAuthenticated: boolean) => void;
+    login: (user: string, token: string) => void;
+    logout: () => void;
+    reservation:any | null;
+    setReservation:(reservation:ReservationFormValues )=>void;
+    clearReservation : ()=>void;
 }
 
 // Load existing token from sessionStorage on app load
@@ -37,8 +41,10 @@ const useAppState = create<AppState>((set) => ({
       sessionStorage.removeItem("access_token");
     }
   },
+    setIsAuthenticated: (isAuthenticated) => set({ isAuthenticated }),
+    // login: (user, token) => set({ user, token, isAuthenticated: true }),
+    // logout: () => {set({ user: null, token: null, isAuthenticated: false });localStorage?.removeItem("access_token")},
 
-  setIsAuthenticated: (isAuthenticated) => set({ isAuthenticated }),
 
   login: (user, token) => {
     sessionStorage.setItem("user", user);
@@ -51,6 +57,16 @@ const useAppState = create<AppState>((set) => ({
     sessionStorage.removeItem("user");
     set({ user: null, token: null, isAuthenticated: false });
   },
+    reservation:{},
+    setReservation: (data) =>
+    set((state) => ({
+        reservation: { ...(state.reservation || {}), ...data },
+    })),
+
+
+    clearReservation:()=>set({reservation:null}),
+
+
 }));
 
 export default useAppState;
