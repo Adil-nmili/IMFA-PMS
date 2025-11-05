@@ -18,11 +18,16 @@ import {
   PaginationNext,
   PaginationPrevious,
 } from "@/components/ui/pagination";
+import { useOutletContext } from "react-router-dom";
+
 
 const RoomsList = () => {
   const { selectedRooms, toogleRoom,rooms,fetchRooms,searchQuery,filters,
 
     } = useRoomStore();
+    interface OutletContext {
+  isOpen: boolean;
+}
 //   const [loading, setLoading] = useState(true);
 const [currentPage, setCurrentPage] = React.useState(1);
   const roomsPerPage = 8;
@@ -91,14 +96,15 @@ console.log(filters)
 
 console.log(filteredRooms)
 
+  const { isOpen } = useOutletContext<OutletContext>();
 
   return (
-    <>
-    <div className="bg-white flex-row  grid grid-cols-4  gap-y-5 gap-x-8 py-3.5 px-4 mr-2  ">
+    <div className="flex flex-col h-[calc(100vh-195px)] overflow-hidden">
+    <div className={`grid  gap-y-5 gap-x-7 pt-4 px-6  ${isOpen ? "grid-cols-3" : "grid-cols-4"} `}>
       {paginatedRooms.map((room) => {
-        const isSelected = selectedRooms.includes(room.id);        
+        const isSelected = selectedRooms.includes(room.id);     
         return (
-          <RoomCard key={room.id}  >
+          <RoomCard key={room.id}   >
             <div
               className={`relative cursor-pointer rounded-xl overflow-hidden  transition-all duration-200
                 ${isSelected ? "ring-4 ring-[#967e62] scale-105" : "hover:ring-2 hover:ring-white"}
@@ -127,7 +133,7 @@ console.log(filteredRooms)
 
        
             </div>
-                   <div className="absolute bottom-1.5 left-1 right-1 w-[271px] bg-white rounded-xl p-1">
+                <div className="absolute bottom-1 left-1 right-1 w-[250px] bg-white rounded-xl p-1">
                 <div className="flex justify-between pl-2 pr-2">
                   <p className="font-semibold">{room.type}</p>
                   <p className="font-semibold">{room.price}dhs/nuit</p>
@@ -149,13 +155,10 @@ console.log(filteredRooms)
           
           
         );
+        
          
       })}
-       <RoomFooter/>
-     
-       
-    </div>
-    {totalPages > 1 && (
+          {totalPages > 1 && (
   <div className="flex justify-center items-center  fixed bottom-4 left-[40%] ">
     <Pagination>
       <PaginationContent>
@@ -188,7 +191,20 @@ console.log(filteredRooms)
   </div>
 )}
 
-    </>
+          
+     
+       
+    </div>
+
+       <RoomFooter
+  style={{
+    left: isOpen ? "200px" : "70px",
+    transition: "all 0.3s ease",
+  }}
+/>
+
+
+    </div>
     
    
   );

@@ -2,7 +2,7 @@ import React from 'react';
 import { useRoomStore } from "@/stores/roomsStore";
 import { Link } from 'react-router-dom';
 
-const RoomFooter = () => {
+const RoomFooter = ({ style }: { style?: React.CSSProperties }) => {
   const { selectedRooms, rooms,clearSelectedRooms } = useRoomStore();
   const selectedRoomsData = rooms.filter((room) => selectedRooms.includes(room.id));
   const selectedRoomsTotal = selectedRoomsData.reduce((sum, room) => sum + room.price, 0);
@@ -10,7 +10,7 @@ const RoomFooter = () => {
   return (
       selectedRooms.length >= 1 && (
 
-<div className="fixed bottom-1 right-1.5 left-1.5 ml-11 max-w-8xl text-white bg-[#967e62] rounded-2xl py-2 px-5 flex items-center justify-between shadow-lg z-50">
+<div className="fixed bottom-3 right-3 left-1 ml-4 max-w-8xl text-white bg-[#967e62] rounded-2xl py-2 px-12 flex items-center justify-between shadow-lg z-50 " style={style}>
       <div className="flex items-center gap-[30vw]">
         <h2 className="text-sm font-semibold whitespace-nowrap">
           {selectedRooms.length} Room{selectedRooms.length > 1 ? "s" : ""} selected
