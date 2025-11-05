@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import Logo from "../../assets/hotelLogo.png";
 import {Bed, LogOut,Wallet, Cog, CheckCircle, MenuSquare,CalendarCheck} from 'lucide-react'
 import { Link } from "react-router-dom";
-import { ACCUEIL, RESERVATIONS,ROOMS } from "@/router/router";
+import { ACCUEIL, RESERVATIONS, ROOMS } from "@/router/router";
 
 interface MenuItem {
   icon: React.ComponentType<{ className?: string }>;
