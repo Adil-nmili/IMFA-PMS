@@ -4,7 +4,7 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 
 interface HeaderProps {
-  profilePicUrl?: string; 
+  profilePicUrl?: string;
 }
 
 const Header = ({ profilePicUrl }: HeaderProps) => {
@@ -20,8 +20,8 @@ const Header = ({ profilePicUrl }: HeaderProps) => {
         />
       </div>
 
-      {/*right side*/}
-      <div className="flex items-center gap-4">
+      {/*right side div*/}
+      <div className="flex items-center gap-4 ml-25">
         {/* Darkmodetoggle*/}
         <Button
           variant="outline"
