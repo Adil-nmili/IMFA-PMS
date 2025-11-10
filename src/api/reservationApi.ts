@@ -1,29 +1,21 @@
 import { supabase } from "@/lib/supabaseClient";
+import type { ReservationFormValues } from "@/types/ReservationFormValuesType";
 
 
-export const getCustomers = async (critic :  string ) =>{
-  const {data , error} = await supabase
-  .from("clients")
-  .select("id,nom,prenom,email")
-  .like("nom", `%${critic}%`)
-  .like("prenom", `%${critic}%`)
-  .like("email",`%${critic}%`)
-  .single();
-  if(error){
-    throw error;
-  }
+export const insertReservation = async (values: ReservationFormValues) => {
+  const { data, error } = await supabase
+    .from("reservations")
+    .insert([
+      {
+        ...values,
+        services: JSON.stringify(values.services),
+        chambres: JSON.stringify(values.chambres),
+      },
+    ]);
+
+  if (error) throw error;
   return data;
-}
-
-export const insertReservation = async (reservation : ReservationFormValues)=>{
-  const {data,error} = await supabase
-  .from("reservations")
-  .insert(reservation)
-  
-  
-  if(error) throw error;
-  return data;
-}
+};
 
 export const deleteReservation = async (reservationId : string)=>{
   const {data,error} = await supabase

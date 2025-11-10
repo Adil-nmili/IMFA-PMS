@@ -6,21 +6,27 @@ import { Form } from "react-router-dom";
 import { SejourTab } from "../reservationTabs/sejourTab.reservation"; 
 import { Button } from "@/components/ui/button"; 
 import ConfirmationTab from "../reservationTabs/confirmation.reservation"; 
-import useAppState from "@/stores/authStore";
+import useReservationStore from "@/stores/reservationStore";
+import type { ReservationFormValues } from "@/types/ReservationFormValuesType";
 const ReservationModal: React.FC = () => {
-  // const reservationInfo = useAppState((state) => state.reservation);
+  const {reservation} = useReservationStore()
+  
+  const requiredFields: (keyof ReservationFormValues)[] = ["nom", "prenom", "email","tel","date_entree","date_sortie"];
+
+  const isDisabled =
+    !reservation || requiredFields.some((field) => !reservation[field]);
 
   const [activeTab, setActiveTab] = useState("client");
   const [isLoading, setIsLoading] = useState(false);
 
   const confirmReservation = async () => {
-    // console.log(reservationInfo);
     try {
       setIsLoading(true);
-      // simulate async action
       await new Promise((r) => setTimeout(r, 1000));
       if (activeTab === "client") setActiveTab("sejour");
       else if (activeTab === "sejour") setActiveTab("confirmation");
+      console.log(reservation);
+      
     } catch (error) {
       console.log(error);
     } finally {
@@ -29,7 +35,7 @@ const ReservationModal: React.FC = () => {
   };
 
   return (
-    <div>
+    <div >
       <Tabs value={activeTab} onValueChange={setActiveTab} className="w-full">
 <TabsList className="grid w-full grid-cols-3 bg-transparent rounded-none">
           <TabsTrigger
@@ -90,10 +96,9 @@ const ReservationModal: React.FC = () => {
         >
           {activeTab === "client" ? "Annuler" : "Retour"}
         </Button>
-
         <Button
           onClick={confirmReservation}
-          disabled={activeTab === "confirmation"}
+          disabled={isDisabled && activeTab === "confirmation"}
           className="bg-[#3F3124] text-white rounded w-50 h-12"
         >
           {isLoading ? "..." : "Continuer"}

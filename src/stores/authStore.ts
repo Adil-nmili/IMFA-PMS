@@ -10,12 +10,9 @@ interface AppState {
     setIsAuthenticated: (isAuthenticated: boolean) => void;
     login: (user: string, token: string) => void;
     logout: () => void;
-    reservation:any | null;
-    setReservation:(reservation:ReservationFormValues )=>void;
-    clearReservation : ()=>void;
+
 }
 
-// Load existing token from sessionStorage on app load
 const storedToken = sessionStorage.getItem("access_token");
 const storedUser = sessionStorage.getItem("user");
 
@@ -57,15 +54,6 @@ const useAppState = create<AppState>((set) => ({
     sessionStorage.removeItem("user");
     set({ user: null, token: null, isAuthenticated: false });
   },
-    reservation:{},
-    setReservation: (data) =>
-    set((state) => ({
-        reservation: { ...(state.reservation || {}), ...data },
-    })),
-
-
-    clearReservation:()=>set({reservation:null}),
-
 
 }));
 

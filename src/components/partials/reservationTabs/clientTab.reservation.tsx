@@ -1,4 +1,3 @@
-import { Button } from "@/components/ui/button";
 import {
   Form,
   FormControl,
@@ -10,23 +9,24 @@ import {
 import { Input } from "@/components/ui/input";
 import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
-import useAppState from "@/stores/authStore";
 import type { ReservationFormValues } from "@/types/ReservationFormValuesType";
-import React, { useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { reservationSchema } from "@/schema/reservationSchema";
-import { getCustomers } from "@/api/reservationApi";
+import useReservationStore from "@/stores/reservationStore";
+import { getClientByContaining } from "@/api/usersApi";
 
 export const ClientTab: React.FC = () => {
   
-  const setReservation = useAppState((state) => state.setReservation);
-  
-  const [customSuggestions,setCustomSuggestions] = useState<any|null>([]);
+  const { setReservation , reservation } = useReservationStore();
 
+  const [customSuggestionsClients,setCustomSuggestionsClients] = useState<any|null>([]);
+  const customSuggClientscomp = useRef<HTMLUListElement | null>(null);
   const form = useForm<ReservationFormValues>({
     resolver: zodResolver(reservationSchema)as any,
     defaultValues: 
+    reservation ||
     {
       nom: "",
       prenom: "",
@@ -40,35 +40,80 @@ export const ClientTab: React.FC = () => {
     },
   });
 
-  const fetchCustomers = async (e:any ) => {
-    const customerResult = await getCustomers(e.target.value);
+  const email = form.watch("email");
+
+  const fetchCustomers = async () => {
+    try {
+      const { nom, prenom, email } = form.getValues();
+
+      const response = await getClientByContaining(email);
+
+      if ((nom && nom.trim() !== "") || (prenom && prenom.trim() !== "") || (email && email.trim() !== "")) {
+        const filtered = response?.filter((client) => 
+          (nom && client.nom.toLowerCase().includes(nom.toLowerCase())) ||
+          (prenom && client.prenom.toLowerCase().includes(prenom.toLowerCase())) ||
+          (email && client.email.toLowerCase().includes(email.toLowerCase()))
+        );
+        setCustomSuggestionsClients(filtered);
+      } else {
+        setCustomSuggestionsClients([]);
+      }
+    } catch (error) {
+      console.log(error);
+    }
   };
 
-  const watchedValues = form.watch();
 
-  React.useEffect(() => {
-    fetchCustomers(watchedValues.nom);
-    setReservation(watchedValues);
-  }, [watchedValues]);
+  useEffect(() => {
+    const subscription = form.watch((values) => {
+      setReservation(values);
+    });
+
+    return () => subscription.unsubscribe();
+  }, [form, setReservation]);
+
+  useEffect(() => {
+    fetchCustomers();
+  }, [email]);
+
+    useEffect(() => {
+    const handleClickOutside = (event: MouseEvent) => {
+      if (
+        customSuggClientscomp.current &&
+        !customSuggClientscomp.current.contains(event.target as Node)
+      ) {
+        setCustomSuggestionsClients([]);
+      }
+    };
+
+    document.addEventListener("mousedown", handleClickOutside);
+    return () => {
+      document.removeEventListener("mousedown", handleClickOutside);
+    };
+  }, []);
 
   return (
       <Form {...form} >
         <form className="grid grid-cols-1  md:grid-cols-2 gap-8 w-ful h-100">
           <div className="flex flex-col gap-4">
-            <FormField
-              control={form.control}
-              name="nom"
-              render={({ field }) => (
-                <FormItem>
-                  <FormLabel>Nom <span className="text-red-500">*</span></FormLabel>
-                  <FormControl>
-                    <Input {...field}
-                    placeholder="Entrez le nom" className="!py-4 text-base rounded-xl h-12 border-gray-300 focus:ring-2 focus:ring-primary bg-white"/>
-                  </FormControl>
-                  <FormMessage />
-                </FormItem>
-              )}
-            />
+            <div className="relative">
+                <FormField
+                  control={form.control}
+                  name="nom"
+                  render={({ field }) => (
+                    <FormItem>
+                      <FormLabel>Nom <span className="text-red-500">*</span></FormLabel>
+                      <FormControl>
+                        <Input {...field}
+                        placeholder="Entrez le nom" className="!py-4 text-base rounded-xl h-12 border-gray-300 focus:ring-2 focus:ring-primary bg-white"
+                        />
+                      </FormControl>
+                      <FormMessage />
+                    </FormItem>
+                  )}
+                />
+            </div>
+            <div className="relative">
             <FormField
               control={form.control}
               name="prenom"
@@ -82,6 +127,7 @@ export const ClientTab: React.FC = () => {
                 </FormItem>
               )}
             />
+            </div>
             <FormField
               control={form.control}
               name="cin"
@@ -169,6 +215,7 @@ export const ClientTab: React.FC = () => {
                 </FormItem>
               )}
             />
+            <div className="relative">
             <FormField
               control={form.control}
               name="email"
@@ -182,6 +229,38 @@ export const ClientTab: React.FC = () => {
                 </FormItem>
               )}
             />
+      {customSuggestionsClients?.length > 0 && (
+        <ul
+          className="absolute z-10 w-full bg-white border border-gray-200 rounded-lg shadow-md mt-1 max-h-48 overflow-y-auto"
+          ref={customSuggClientscomp}
+        >
+          {customSuggestionsClients.map((client: any, index: number) => (
+            <li
+              key={index}
+              className="px-4 py-2 cursor-pointer hover:bg-gray-100"
+              onClick={() => {
+              form.reset({
+                nom: client.nom,
+                prenom: client.prenom,
+                email: client.email,
+                idClient: client.id,
+                tel: client.telephone,
+                cin: client.CIN,
+                adresse: client.adresse,
+                date_naissance: client.date_naissance,
+                genre: client.genre,
+                statut_social: client.statut_social,
+              });
+
+                setCustomSuggestionsClients([]);
+              }}
+            >
+              {client.nom} {client.prenom} - {client.email}
+            </li>
+          ))}
+        </ul>
+      )}
+            </div>
             <FormField
               control={form.control}
               name="adresse"

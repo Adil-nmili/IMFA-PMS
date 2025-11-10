@@ -11,7 +11,6 @@ const Layout = () => {
             <div className="flex-1 flex flex-col">
                 <main className="ml-4">
                     <Header />
-                    {/* Page content */}
                     <div className="p-6">
                         <Outlet />
                     </div>

@@ -1,0 +1,14 @@
+[
+  { "id": 1, "type": "Wi-Fi", "description": "High-speed wireless internet access" },
+  { "id": 2, "type": "Restaurant", "description": "In-house dining with local and international cuisine" },
+  { "id": 3, "type": "Swimming Pool", "description": "Outdoor pool available year-round" },
+  { "id": 4, "type": "Parking", "description": "Free on-site parking for guests" },
+  { "id": 5, "type": "Spa", "description": "Relaxing spa and wellness services" },
+  { "id": 6, "type": "Gym", "description": "Fully equipped fitness center" },
+  { "id": 7, "type": "Room Service", "description": "24/7 in-room dining service" },
+  { "id": 8, "type": "Laundry", "description": "Laundry and dry cleaning services" },
+  { "id": 9, "type": "Bar", "description": "Lounge bar with drinks and snacks" },
+  { "id": 10, "type": "Concierge", "description": "Assistance with bookings and tours" },
+  { "id": 11, "type": "Airport Shuttle", "description": "Transport to/from airport" },
+  { "id": 12, "type": "Pet-Friendly", "description": "Accommodation for pets allowed" }
+]

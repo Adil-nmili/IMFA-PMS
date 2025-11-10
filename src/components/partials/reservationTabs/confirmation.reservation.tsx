@@ -1,54 +1,67 @@
-import useAppState from '@/stores/authStore'
+import { RadioGroup, RadioGroupItem } from '@/components/ui/radio-group';
+import { reservationSchema } from '@/schema/reservationSchema';
+import useReservationStore from '@/stores/reservationStore';
+import type { ReservationFormValues } from '@/types/ReservationFormValuesType';
+import { zodResolver } from '@hookform/resolvers/zod';
 import React, { useState } from 'react';
+import { useForm } from 'react-hook-form';
 
 const ConfirmationTab : React.FC<any>  = ()=>{
-    const reservationInfo = useAppState(state=>state.reservation);
 
+    const {reservation} = useReservationStore();
+      const form = useForm<ReservationFormValues>({
+        resolver: zodResolver(reservationSchema)as any,
+        defaultValues: 
+        reservation ||
+        {
+          status:"en_attente"
+        },
+      });    
     const [displayArrayReservation,setDisplayArrayReservation] = useState<any>(
         [
             {
                 label:"Nom & Prenom",
-                value:(reservationInfo?.nom || reservationInfo?.prenom) && reservationInfo?.nom+" "+reservationInfo?.prenom
+                value:(reservation?.nom || reservation?.prenom) && reservation?.nom+" "+reservation?.prenom
             },
             {
                 label:"CIN",
-                value:reservationInfo?.cin
+                value:reservation?.cin
             },            {
                 label:"Statut social",
-                value:reservationInfo?.statut_social
+                value:reservation?.statut_social
             },            {
                 label:"Genre",
-                value:reservationInfo?.genre
+                value:reservation?.genre
             },            {
                 label:"Date de naissance",
-                value:reservationInfo?.date_naissance
+                value:reservation?.date_naissance
             },            {
                 label:"Tel",
-                value:reservationInfo?.tel
+                value:reservation?.tel
             },            {
                 label:"Email",
-                value:reservationInfo?.email
+                value:reservation?.email
             },{
                 label:"Adresse",
-                value:reservationInfo?.adresse
+                value:reservation?.adresse
             },
             
             {
                 label:"Date d’entrée",
-                value:reservationInfo?.date_entree
+                value:reservation?.date_entree
             },{
                 label:"Date de sortie",
-                value:reservationInfo?.date_sortie
+                value:reservation?.date_sortie
             },{
                 label:"Nombre d’adultes",
-                value:reservationInfo?.adultsNum
+                value:reservation?.adultsNum
             },{
                 label:"Nombre d’enfants",
-                value:reservationInfo?.enfantNum
+                value:reservation?.enfantNum
             },
             {
                 label:"Services",
-                value:reservationInfo?.services
+                value:reservation?.services
             }
         ]
     );
@@ -83,43 +96,63 @@ const ConfirmationTab : React.FC<any>  = ()=>{
         <div className='w-[1px] h-100 bg-[#3F3124]'></div>
         <div className='w-1/2'>
             <h1 className='text-xl font-bold text-[#795E46]'>Détails du séjour</h1>
-                <div className='flex flex-col gap-6 mt-6'>
-                {
-                    displayArrayReservation?.map((i : any,index:number)=>
-                    {
-                        if(index > 8){
-                            return (
-                            <div key={index}>
-                                <label htmlFor="" className='text-[#967E62]'>
-                                    {i?.label} : 
-                                </label>
-                                <span className='text-black'>
-                                    {
-                                         i?.value ? i?.value :"______________"
-                                    }
-                                </span>
-                            </div>
-                            )
-                        }else if(i?.label == 'Services'){
-                            <div>
-                                <label htmlFor="" className='text-[#967E62]'>
-                                    {i?.label} : 
-                                </label>
-                                <ul className='text-black'>
-                                    {
-                                        i?.map((s : any,index:number)=>
-                                            <li key={index}>
-                                                {s && "."}
-                                            </li>
-                                        )
-                                    }
-                                </ul>
-                            </div>
-                        }
+            <div className='flex flex-col gap-6 mt-6'>
+            {
+                displayArrayReservation?.map((i: any, index: number) => {
+                if (index >= 8) {
+                    if (i?.label === 'Services') {
+                        
+                    return (
+                        <div key={index}>
+                        <label className="text-[#967E62]">{i?.label} :</label>
+                        <ul className="text-black grid grid-cols-3">
+                            {Array.isArray(i?.value) &&
+                            i.value.map((s: any, idx: number) => (
+                                s?.id &&
+                                <li key={idx}>
+                                {s?.type && `• ${s.type}`}
+                                </li>
+                            ))}
+                        </ul>
+                        </div>
+                    );
+                    } else {
+                    return (
+                        <div key={index}>
+                        <label className="text-[#967E62]">{i?.label} :</label>
+                        <span className="text-black">
+                            {i?.value ? i.value : "______________"}
+                        </span>
+                        </div>
+                    );
                     }
-                    )
                 }
-            </div>
+                return null;
+                })
+
+            }
+            </div>  
+
+<RadioGroup
+  value={form.watch("status")}
+  onValueChange={(value) => form.setValue("status", value as ReservationFormValues["status"])}
+  className="grid grid-cols-3 mt-10 space-y-2"
+>
+  <div className="flex items-center space-x-2">
+    <RadioGroupItem value="confirme" id="confirme" className='border rounded-full border-black' />
+    <label htmlFor="confirme">Confirmé</label>
+  </div>
+
+  <div className="flex items-center space-x-2">
+    <RadioGroupItem value="en_attente" id="en_attente" className='border rounded-full border-black'/>
+    <label htmlFor="en_attente">En attente</label>
+  </div>
+
+  <div className="flex items-center space-x-2">
+    <RadioGroupItem value="paye" id="paye" className='border rounded-full border-black'/>
+    <label htmlFor="paye">Payé</label>
+  </div>
+</RadioGroup>
         </div>
     </div>
   )

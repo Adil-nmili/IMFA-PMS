@@ -14,7 +14,6 @@ const RoomsPage = () => {
                 <div className='flex-1 bg-white border-1 m-0.5 border-gray-200 rounded-2xl '>
                  <RoomHeader/>
                  <RoomsList />
-                
                 </div>
             </div>
            

@@ -4,15 +4,18 @@ import { Checkbox } from "@/components/ui/checkbox";
 import type React from "react";
 import { useForm } from "react-hook-form";
 import { useEffect } from "react";
-import useAppState from "@/stores/authStore";
 import type { ReservationFormValues } from "@/types/ReservationFormValuesType";
-
+import useReservationStore from "@/stores/reservationStore";
+import servicesList from '@/constants/services.json'
 export const SejourTab: React.FC = () => {
 
-  const setReservation = useAppState(state=>state.setReservation);
+  const { setReservation , reservation} = useReservationStore();
+
 
   const form = useForm<ReservationFormValues>({
-    defaultValues: {
+    defaultValues: 
+    reservation ||
+    {
       date_entree: "",
       date_sortie: "",
       enfantNum: 0,
@@ -22,27 +25,15 @@ export const SejourTab: React.FC = () => {
     },
   });
 
-  const servicesList = [
-    { key: "wifi", label: "Wi-Fi" },
-    { key: "petit_dej", label: "Petit-déjeuner" },
-    { key: "parking", label: "Parking" },
-    { key: "Restauration", label: "Restauration" },
-    { key: "Pressing", label: "Pressing" },
-    { key: "Bien-être", label: "Bien-être" },
-    { key: "Service en chambre", label: "Service en chambre" },
-    { key: "Navette aéroport", label: "Navette aéroport" },
-    { key: "Piscine", label: "Piscine" },
-    { key: "Transport", label: "Transport" },
-    { key: "Baby-sitting", label: "Baby-sitting" },
-    { key: "Salle de sport", label: "Salle de sport" },
-    { key: "Parking privé", label: "Parking privé" },
-  ];
 
-  const watchedValues = form.watch();
 
-  useEffect(()=>{
-    setReservation(watchedValues);
-  },[watchedValues,setReservation])
+  useEffect(() => {
+    const subscription = form.watch((values) => {
+      setReservation(values);
+    });
+
+    return () => subscription.unsubscribe();
+  }, [form, setReservation]);
 
   return (
     <Form {...form}>
@@ -105,29 +96,40 @@ export const SejourTab: React.FC = () => {
             />
           </div>
         </div>
+    <div className="flex flex-col gap-4">
+      <h3 className="text-lg font-semibold">Services</h3>
+      <div className="grid grid-cols-2 gap-6">
+        {servicesList.map((service) => {
+          const isSelected = form.getValues("services")?.some((s: { id: number; }) => s?.id === service?.id);
 
-        <div className="flex flex-col gap-4">
-          <h3 className="text-lg font-semibold">Services</h3>
-          <div className="grid grid-cols-2 gap-6">
-          {servicesList.map((service) => (
-            <FormField
-              key={service.key}
-              control={form.control}
-              name={`services.${service.key}`}
-              render={({ field }) => (
-                <FormItem className="flex items-center gap-2">
-                  <FormControl>
-                    <Checkbox 
-                    checked={field.value} onCheckedChange={field.onChange} id={service.key} />
-                  </FormControl>
-                  <label htmlFor={service.key} className="text-base">{service.label}</label>
-                </FormItem>
-              )}
-            />
-          ))}
+          return (
+            <FormItem key={service.id} className="flex items-center gap-2">
+              <FormControl>
+                <Checkbox
+                  checked={isSelected}
+                  onCheckedChange={(checked) => {
+                    const currentServices = form.getValues("services") || [];
+                    if (checked) {
+                      form.setValue("services", [...currentServices, service]);
+                    } else {
+                      form.setValue(
+                        "services",
+                        currentServices.filter((s: { id: number; }) => s.id !== service.id)
+                      );
+                    }
+                  }}
+                  id={service.type}
+                />
+              </FormControl>
+              <label htmlFor={service.type} className="text-base">
+                {service.type}
+              </label>
+            </FormItem>
+          );
+        })}
+      </div>
+    </div>
 
-          </div>
-        </div>
         
       </form>
     </Form>

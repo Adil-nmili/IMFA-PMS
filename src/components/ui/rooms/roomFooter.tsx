@@ -1,6 +1,9 @@
 import React from 'react';
 import { useRoomStore } from "@/stores/roomsStore";
 import { Link } from 'react-router-dom';
+import GlobalModal from '@/components/shared-component/globalModal';
+import type { UserType } from '@/types/UserType';
+import ReservationModal from '@/components/partials/modals/reservationModal';
 
 const RoomFooter = () => {
   const { selectedRooms, rooms,clearSelectedRooms } = useRoomStore();
@@ -24,11 +27,11 @@ const RoomFooter = () => {
       </div>
 
       <div className="flex items-center gap-3">
-        <Link to="/reservation">
           <button className="bg-[#967e62] border-2 cursor-pointer text-white px-3 py-1.5 rounded-4xl font-normal transition">
-            Ajouter une réservation
+            <GlobalModal message="Ajouter une réservation">
+              <ReservationModal/>
+            </GlobalModal>
           </button>
-        </Link>
         <button onClick={clearSelectedRooms} className="bg-[#967e62] border-2 rounded-4xl cursor-pointer text-white px-3 py-1.5 font-normal">
           Annuler
         </button>

@@ -84,12 +84,6 @@ const matchCapacity =
     if (page > 0 && page <= totalPages) setCurrentPage(page);
   };
 
-// console.log(keywords);
-// console.log("Filtered Rooms:", filteredRooms);
-
-console.log(filters)
-
-console.log(filteredRooms)
 
 
   return (
@@ -115,7 +109,6 @@ console.log(filteredRooms)
                 />
               )}
               
-      {/* Selected Checkbox */}
      {isSelected && (
         <div
           className="absolute top-2 right-2 w-6 h-6 border-2 rounded-full flex items-center justify-center

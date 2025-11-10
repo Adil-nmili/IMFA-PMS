@@ -1,7 +1,6 @@
 
 import { supabase } from "@/lib/supabaseClient";
 
-import type { ReservationFormValues } from "@/types/ReservationFormValuesType";
 
 export const loginByRFID = async (rfidId: string,nomEmp:string) => {
   const { data, error } = await supabase

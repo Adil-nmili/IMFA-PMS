@@ -1,5 +1,3 @@
-import GlobalModal from "@/components/shared-component/globalModal";
-import ReservationModal from "@/components/partials/modals/reservationModal";
 import Layout from "@/layout";
 import Dashboard from "@/pages/Dashboard";
 import Login from "@/pages/loginPage";
