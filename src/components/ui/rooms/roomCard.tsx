@@ -2,16 +2,28 @@ import * as React from "react"
 
 import { cn } from "@/lib/utils"
 
-function RoomCard({ className, ...props }: React.ComponentProps<"div">) {
+import { RoomStatusBadge } from "@/components/ui/rooms/roomStatusBadge";
+
+interface RoomCardProps extends React.ComponentProps<"div"> {
+  roomId?: number
+}
+
+function RoomCard({ className,roomId, ...props }: RoomCardProps) {
   return (
+    
     <div
       data-slot="card"
       className={cn(
-        " text-card-foreground rounded-xl   shadow-sm  w-[260px] relative",
+        "text-card-foreground rounded-xl shadow-sm w-[260px] relative",
         className
       )}
       {...props}
-    />
+      >
+
+      //roomBadge composant 
+     <RoomStatusBadge roomId={roomId}/>
+        
+    </div>
   )
 }
 

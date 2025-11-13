@@ -104,7 +104,7 @@ console.log(filteredRooms)
       {paginatedRooms.map((room) => {
         const isSelected = selectedRooms.includes(room.id);     
         return (
-          <RoomCard key={room.id}   >
+          <RoomCard key={room.id}  roomId={room.id} >
             <div
               className={`relative cursor-pointer rounded-xl overflow-hidden  transition-all duration-200
                 ${isSelected ? "ring-4 ring-[#967e62] scale-105" : "hover:ring-2 hover:ring-white"}
