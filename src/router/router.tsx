@@ -4,7 +4,7 @@ import Login from "@/pages/loginPage";
 import ReservationPage from "@/pages/reservation";
 import RoomsPage from "@/pages/roomsPage";
 import { createBrowserRouter } from "react-router-dom";
-import DetailsPage from "@/components/ui/rooms/detailsPage";
+import DetailsPage from "@/components/rooms/detailsPage";
 import BillingPage from "@/pages/BillingPage";
 
 
