@@ -1,6 +1,6 @@
 import React from "react";
 import { useEffect } from 'react';
-import { RoomCard } from "@/components/ui/rooms/roomCard";
+import { Card } from "@/components/ui/card";
 import { GoPeople } from "react-icons/go";
 import { FaBath } from "react-icons/fa6";
 import { LiaRulerCombinedSolid } from "react-icons/lia";
@@ -100,11 +100,11 @@ console.log(filteredRooms)
 
   return (
     <div className="flex flex-col h-[calc(100vh-195px)] overflow-hidden">
-    <div className={`grid  gap-y-5 gap-x-7 pt-4 px-6  ${isOpen ? "grid-cols-3" : "grid-cols-4"} `}>
+    <div className={`grid  gap-y-5 gap-x-2 pt-4  ${isOpen ? "grid-cols-3 pl-10  " : "grid-cols-4 pl-2 "} `}>
       {paginatedRooms.map((room) => {
         const isSelected = selectedRooms.includes(room.id);     
         return (
-          <RoomCard key={room.id}   >
+          <Card key={room.id}  className="rounded-xl shadow-sm relative overflow-hidden w-[22vw] h-44 p-0">
             <div
               className={`relative cursor-pointer rounded-xl overflow-hidden  transition-all duration-200
                 ${isSelected ? "ring-4 ring-[#967e62] scale-105" : "hover:ring-2 hover:ring-white"}
@@ -117,7 +117,7 @@ console.log(filteredRooms)
                 <img
                   src={room.image}
                   alt=""
-                  className="w-max rounded-md object-cover "
+                  className="rounded-md w-full h-full object-cover "
                 />
               )}
               
@@ -133,7 +133,7 @@ console.log(filteredRooms)
 
        
             </div>
-                <div className="absolute bottom-1 left-1 right-1 w-[250px] bg-white rounded-xl p-1">
+                <div className="absolute bottom-1 left-1 right-1 w-[270px] bg-white rounded-xl p-1">
                 <div className="flex justify-between pl-2 pr-2">
                   <p className="font-semibold">{room.type}</p>
                   <p className="font-semibold">{room.price}dhs/nuit</p>
@@ -150,7 +150,7 @@ console.log(filteredRooms)
                 </div>
                 </div>
               </div>
-          </RoomCard>
+          </Card>
           
           
           

@@ -5,6 +5,7 @@ import ReservationPage from "@/pages/reservation";
 import RoomsPage from "@/pages/roomsPage";
 import { createBrowserRouter } from "react-router-dom";
 import DetailsPage from "@/components/ui/rooms/detailsPage";
+import BillingPage from "@/pages/BillingPage";
 
 
 
@@ -12,8 +13,8 @@ export const LOGINPAGE = "/";
 export const ACCUEIL = "/accueil";
 export const RESERVATIONS = "/reservations"
 export const ROOMS = "/rooms"
-export const DETAILSPAGE="/rooms/:id"
-
+export const DETAILSPAGE="/rooms/:id" 
+export const BILLING="/billing"
 
 export const Router = createBrowserRouter([
     {
@@ -38,6 +39,10 @@ export const Router = createBrowserRouter([
             {
                 path: DETAILSPAGE,
                 element:<DetailsPage />
+            },
+            {
+                path: BILLING,
+                element:<BillingPage />
             }
             
         ]
