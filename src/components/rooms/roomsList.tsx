@@ -10,6 +10,7 @@ import { MdArrowOutward } from "react-icons/md";
 import { Button } from "@/components/ui/button";
 import RoomFooter from "./roomFooter";
 import { Link } from "react-router-dom";
+import { RoomStatusBadge } from "./roomStatusBadge";
 import {
   Pagination,
   PaginationContent,
@@ -105,6 +106,9 @@ console.log(filteredRooms)
         const isSelected = selectedRooms.includes(room.id);     
         return (
           <Card key={room.id} className="rounded-xl shadow-sm relative overflow-hidden w-[22vw] h-44 p-0">
+            <div className="absolute top-2 left-2 z-10">
+              <RoomStatusBadge roomId={room.id} />
+            </div>
             <div
               className={`relative cursor-pointer rounded-xl overflow-hidden  transition-all duration-200
                 ${isSelected ? "ring-4 ring-[#967e62] scale-105" : "hover:ring-2 hover:ring-white"}
