@@ -1,6 +1,6 @@
 import React from 'react';
-import RoomHeader from '@/components/ui/rooms/roomHeader';
-import RoomsList from '@/components/ui/rooms/roomsList';
+import RoomHeader from '@/components/partials/rooms/roomHeader';
+import RoomsList from '@/components/partials/rooms/roomsList';
 
 const RoomsPage = () => {
     return (

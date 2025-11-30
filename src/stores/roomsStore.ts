@@ -52,17 +52,17 @@ export const useRoomStore = create<RoomsStore>((set) => ({
   clearSelectedRooms: () => set({ selectedRooms: [] }),
   setSearchQuery: (query) => set({ searchQuery: query }),
 
-toogleFilter: (key: FilterKey, value: string | number) =>
-  set((state) => {
-   
-    const alreadySelected = state.filters[key].includes(value);
-    return {
-      filters: {
-        ...state.filters,
-        [key]: alreadySelected ? [] : [value], 
-      },
-    };
-  }),
+  toogleFilter: (key: FilterKey, value: string | number) =>
+    set((state) => {
+      const currentFilter = state.filters[key] as (string | number)[];
+      const alreadySelected = currentFilter.includes(value);
+      return {
+        filters: {
+          ...state.filters,
+          [key]: alreadySelected ? [] : [value],
+        },
+      };
+    }),
 
 
 
