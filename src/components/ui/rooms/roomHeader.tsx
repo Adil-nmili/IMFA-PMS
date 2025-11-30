@@ -1,14 +1,15 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { useRoomStore } from '@/stores/roomsStore';
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
-import { DropdownMenu, DropdownMenuTrigger, DropdownMenuContent, DropdownMenuCheckboxItem } from "@/components/ui/dropdown-menu";
-import { X, Search } from "lucide-react";
-import { BiFilterAlt } from "react-icons/bi";
+import { DropdownMenu, DropdownMenuTrigger, DropdownMenuContent, DropdownMenuCheckboxItem, DropdownMenuLabel, DropdownMenuSeparator } from "@/components/ui/dropdown-menu";
+import { X, Search, Filter, SlidersHorizontal, Check } from "lucide-react";
+import { Slider } from "@/components/ui/slider"; // Assuming Shadcn slider exists or I might need to use inputs if not
 
 const RoomFilter = () => {
-  const {rooms,
+  const {
+    rooms,
     searchQuery,
     setSearchQuery,
     filters,
@@ -18,157 +19,223 @@ const RoomFilter = () => {
     toogleShowFilters,
   } = useRoomStore();
 
-const roomTypes = Array.from(
-  new Set(
-    rooms
-      .map((room) => room.type?.trim().toLowerCase()) 
-      .filter(Boolean) 
-  )
-);
+  const [priceRange, setPriceRange] = useState<{ min: string, max: string }>({ min: "", max: "" });
 
-const roomStatuses = Array.from(
-  new Set(
-    rooms
-      .map((room) => room.status?.trim().toLowerCase())
-      .filter(Boolean)
-  )
-);
+  const roomTypes = Array.from(
+    new Set(rooms.map((room) => room.type?.trim().toLowerCase()).filter(Boolean))
+  );
 
-const roomCapacities = Array.from(new Set(rooms.map(room => room.capacity)));
+  const roomStatuses = Array.from(
+    new Set(rooms.map((room) => room.status?.trim().toLowerCase()).filter(Boolean))
+  );
 
+  const roomCapacities = Array.from(new Set(rooms.map((room) => room.capacity)));
 
- 
+  // Mock amenities for now as they might not be populated in all room data
+  const amenitiesList = ["WiFi", "TV", "AC", "Mini Bar", "Balcony", "Sea View"];
+
+  const handlePriceChange = (type: 'min' | 'max', value: string) => {
+    setPriceRange(prev => ({ ...prev, [type]: value }));
+    // In a real app, you'd debounce this and update the store filter
+    // For now, let's assume we might add a specific price filter action later
+  };
+
   return (
-    <div className='flex flex-col  bg-white rounded-lg border p-1.5   '> 
-    <div className="flex flex-wrap justify-between items-center px-4.5  ">
-       <div className='text-xl '>
-         <h2 className='font-semibold '>Rooms</h2>
-       </div>
-      {/* Search Input */}
-      <div className='flex  justify-between items-center gap-1.5 '>
-        <div className="relative ">
-        <Search className="absolute left-2 top-1/2 transform -translate-y-1/2 text-gray-400 w-3.5 h-4" />
-        <Input
-          placeholder="Search room..."
-          value={searchQuery}
-          onChange={(e) => setSearchQuery(e.target.value)}
-          className="w-64 pl-7  "
-        />
-     
-      </div>
-       {/* Action Buttons */}
-      <div className=" ">
-       <Button  onClick={toogleShowFilters} className='bg-[#967e62]  '><BiFilterAlt /></Button>
+    <div className="flex flex-col gap-4 p-4 border-b border-border bg-card/50 backdrop-blur-sm sticky top-0 z-40">
+      <div className="flex flex-col md:flex-row justify-between items-start md:items-center gap-4">
+        <div>
+          <h2 className="text-2xl font-bold tracking-tight">Rooms Management</h2>
+          <p className="text-muted-foreground">Manage your hotel rooms and availability.</p>
+        </div>
 
+        <div className="flex items-center gap-2 w-full md:w-auto">
+          <div className="relative flex-1 md:w-64">
+            <Search className="absolute left-2.5 top-2.5 h-4 w-4 text-muted-foreground" />
+            <Input
+              placeholder="Search rooms..."
+              value={searchQuery}
+              onChange={(e) => setSearchQuery(e.target.value)}
+              className="pl-9 bg-background"
+            />
+          </div>
+          <Button
+            variant={showFilters ? "secondary" : "outline"}
+            onClick={toogleShowFilters}
+            className="shrink-0 gap-2"
+          >
+            <SlidersHorizontal className="h-4 w-4" />
+            Filters
+          </Button>
+        </div>
       </div>
 
-      </div>
-    </div>
-  
-
-    
-    
       {showFilters && (
-      <div className='flex justify-between items-center  '>
-          <div className="flex justify-between items-center gap-1 pl-4 ">
-          {/* Type Filter */}
-          <DropdownMenu >
-            <DropdownMenuTrigger asChild>
-              <Button variant="outline">Type</Button>
-            </DropdownMenuTrigger>
-            <DropdownMenuContent className="w-48">
-              {roomTypes.map((type) => (
-                <DropdownMenuCheckboxItem
-                  key={type}
-                  checked={filters.type.includes(type)}
-                  onCheckedChange={() => toogleFilter("type", type)}
+        <div className="flex flex-col gap-4 pt-2 animate-in slide-in-from-top-2 duration-200 border-t border-border mt-2">
+
+          <div className="flex flex-wrap gap-2 items-center">
+            {/* Type Filter */}
+            <DropdownMenu>
+              <DropdownMenuTrigger asChild>
+                <Button variant="outline" size="sm" className="h-9 border-dashed">
+                  Type
+                  {filters.type.length > 0 && (
+                    <span className="ml-2 rounded-sm bg-primary px-1 font-normal text-primary-foreground">
+                      {filters.type.length}
+                    </span>
+                  )}
+                </Button>
+              </DropdownMenuTrigger>
+              <DropdownMenuContent align="start" className="w-48">
+                <DropdownMenuLabel>Room Type</DropdownMenuLabel>
+                <DropdownMenuSeparator />
+                {roomTypes.map((type) => (
+                  <DropdownMenuCheckboxItem
+                    key={type}
+                    checked={filters.type.includes(type)}
+                    onCheckedChange={() => toogleFilter("type", type)}
+                  >
+                    <span className="capitalize">{type}</span>
+                  </DropdownMenuCheckboxItem>
+                ))}
+              </DropdownMenuContent>
+            </DropdownMenu>
+
+            {/* Status Filter */}
+            <DropdownMenu>
+              <DropdownMenuTrigger asChild>
+                <Button variant="outline" size="sm" className="h-9 border-dashed">
+                  Status
+                  {filters.status.length > 0 && (
+                    <span className="ml-2 rounded-sm bg-primary px-1 font-normal text-primary-foreground">
+                      {filters.status.length}
+                    </span>
+                  )}
+                </Button>
+              </DropdownMenuTrigger>
+              <DropdownMenuContent align="start" className="w-48">
+                <DropdownMenuLabel>Availability</DropdownMenuLabel>
+                <DropdownMenuSeparator />
+                {roomStatuses.map((status) => (
+                  <DropdownMenuCheckboxItem
+                    key={status}
+                    checked={filters.status.includes(status)}
+                    onCheckedChange={() => toogleFilter("status", status)}
+                  >
+                    <span className="capitalize">{status}</span>
+                  </DropdownMenuCheckboxItem>
+                ))}
+              </DropdownMenuContent>
+            </DropdownMenu>
+
+            {/* Capacity Filter */}
+            <DropdownMenu>
+              <DropdownMenuTrigger asChild>
+                <Button variant="outline" size="sm" className="h-9 border-dashed">
+                  Capacity
+                  {filters.capacity.length > 0 && (
+                    <span className="ml-2 rounded-sm bg-primary px-1 font-normal text-primary-foreground">
+                      {filters.capacity.length}
+                    </span>
+                  )}
+                </Button>
+              </DropdownMenuTrigger>
+              <DropdownMenuContent align="start" className="w-48">
+                <DropdownMenuLabel>Guests</DropdownMenuLabel>
+                <DropdownMenuSeparator />
+                {roomCapacities.map((capacity) => (
+                  <DropdownMenuCheckboxItem
+                    key={capacity}
+                    checked={filters.capacity.includes(capacity)}
+                    onCheckedChange={() => toogleFilter("capacity", capacity.toString())}
+                  >
+                    {capacity} {capacity === 1 ? "person" : "people"}
+                  </DropdownMenuCheckboxItem>
+                ))}
+              </DropdownMenuContent>
+            </DropdownMenu>
+
+            {/* Price Range (Visual only for now as store update needed) */}
+            <DropdownMenu>
+              <DropdownMenuTrigger asChild>
+                <Button variant="outline" size="sm" className="h-9 border-dashed">
+                  Price Range
+                </Button>
+              </DropdownMenuTrigger>
+              <DropdownMenuContent align="start" className="w-64 p-4">
+                <DropdownMenuLabel>Price per night (DH)</DropdownMenuLabel>
+                <DropdownMenuSeparator />
+                <div className="flex items-center gap-2 mt-2">
+                  <Input
+                    type="number"
+                    placeholder="Min"
+                    className="h-8"
+                    value={priceRange.min}
+                    onChange={(e) => handlePriceChange('min', e.target.value)}
+                  />
+                  <span>-</span>
+                  <Input
+                    type="number"
+                    placeholder="Max"
+                    className="h-8"
+                    value={priceRange.max}
+                    onChange={(e) => handlePriceChange('max', e.target.value)}
+                  />
+                </div>
+              </DropdownMenuContent>
+            </DropdownMenu>
+
+            {(filters.type.length > 0 || filters.status.length > 0 || filters.capacity.length > 0) && (
+              <Button
+                variant="ghost"
+                size="sm"
+                onClick={clearFilters}
+                className="h-9 px-2 lg:px-3"
+              >
+                Reset
+                <X className="ml-2 h-4 w-4" />
+              </Button>
+            )}
+          </div>
+
+          {/* Active Filters Display */}
+          <div className="flex flex-wrap gap-2">
+            {filters.type.map((type) => (
+              <Badge key={type} variant="secondary" className="capitalize pl-2 pr-1 py-1">
+                {type}
+                <button
+                  className="ml-1 ring-offset-background rounded-full outline-none focus:ring-2 focus:ring-ring focus:ring-offset-2 hover:bg-background/50 p-0.5"
+                  onClick={() => toogleFilter("type", type)}
                 >
-                      {type.charAt(0).toUpperCase() + type.slice(1)}
-
-                </DropdownMenuCheckboxItem>
-              ))}
-            </DropdownMenuContent>
-          </DropdownMenu>
-          {filters.type.map((type) => (
-          <Badge key={type} variant="secondary" className="flex items-center gap-1">
-            Type: {type}
-            <X
-              className="w-3 h-3 cursor-pointer"
-              onClick={() => toogleFilter("type", type)}
-            />
-          </Badge>
-        ))}
-
-          {/* Status Filter */}
-          <DropdownMenu>
-            <DropdownMenuTrigger asChild>
-              <Button variant="outline">Status</Button>
-            </DropdownMenuTrigger>
-            <DropdownMenuContent className="w-48">
-              {roomStatuses.map((status) => (
-                <DropdownMenuCheckboxItem
-                  key={status}
-                  checked={filters.status.includes(status)}
-                  onCheckedChange={() => toogleFilter("status", status)}
-                >
-                     {status.charAt(0).toUpperCase() + status.slice(1)}
-
-                </DropdownMenuCheckboxItem>
-              ))}
-            </DropdownMenuContent>
+                  <X className="h-3 w-3 text-muted-foreground hover:text-foreground" />
+                </button>
+              </Badge>
+            ))}
             {filters.status.map((status) => (
-          <Badge key={status} variant="secondary" className="flex items-center gap-1">
-            Status: {status}
-            <X
-              className="w-3 h-3 cursor-pointer"
-              onClick={() => toogleFilter("status", status)}
-            />
-          </Badge>
-        ))}
-          </DropdownMenu>
-
-          {/* Capacity Filter */}
-          <DropdownMenu>
-            <DropdownMenuTrigger asChild>
-              <Button variant="outline">Capacity</Button>
-            </DropdownMenuTrigger>
-            <DropdownMenuContent className="w-48">
-              {roomCapacities.map((capacity) => (
-                <DropdownMenuCheckboxItem
-                  key={capacity}
-                  checked={filters.capacity.includes(capacity)}
-                  onCheckedChange={() => toogleFilter("capacity", capacity.toString())}
+              <Badge key={status} variant="secondary" className="capitalize pl-2 pr-1 py-1">
+                {status}
+                <button
+                  className="ml-1 ring-offset-background rounded-full outline-none focus:ring-2 focus:ring-ring focus:ring-offset-2 hover:bg-background/50 p-0.5"
+                  onClick={() => toogleFilter("status", status)}
                 >
-                  {capacity} {capacity === 1 ? 'person' : 'people'}
-                </DropdownMenuCheckboxItem>
-              ))}
-            </DropdownMenuContent>
-             {filters.capacity.map((capacity) => (
-          <Badge key={capacity} variant="secondary" className="flex items-center gap-1">
-            Capacity: {capacity}
-            <X
-              className="w-3 h-3 cursor-pointer"
-              onClick={() => toogleFilter("capacity", capacity.toString())}
-            />
-          </Badge>
-        ))}
-          </DropdownMenu>
-           
-          
+                  <X className="h-3 w-3 text-muted-foreground hover:text-foreground" />
+                </button>
+              </Badge>
+            ))}
+            {filters.capacity.map((capacity) => (
+              <Badge key={capacity} variant="secondary" className="pl-2 pr-1 py-1">
+                {capacity} ppl
+                <button
+                  className="ml-1 ring-offset-background rounded-full outline-none focus:ring-2 focus:ring-ring focus:ring-offset-2 hover:bg-background/50 p-0.5"
+                  onClick={() => toogleFilter("capacity", capacity.toString())}
+                >
+                  <X className="h-3 w-3 text-muted-foreground hover:text-foreground" />
+                </button>
+              </Badge>
+            ))}
           </div>
-          <div className=''>
-        <Button variant="ghost" onClick={clearFilters}>
-          Clear all
-        </Button>
-          </div>
-      </div>
+        </div>
       )}
-      
-</div>
-
-     
-
-     
+    </div>
   );
 };
 

@@ -3,12 +3,15 @@ import { createRoot } from 'react-dom/client'
 import './index.css'
 import App from '@/app'
 import { AuthProvider } from './context/AuthContext'
+import { ThemeProvider } from "@/components/theme-provider"
 
 createRoot(document.getElementById('root')!).render(
-  
+
   <StrictMode>
     <AuthProvider>
-      <App />
+      <ThemeProvider defaultTheme="dark" storageKey="vite-ui-theme">
+        <App />
+      </ThemeProvider>
     </AuthProvider>
   </StrictMode>,
 )

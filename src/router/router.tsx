@@ -9,6 +9,7 @@ import { createBrowserRouter } from "react-router-dom";
 import DetailsPage from "@/components/ui/rooms/detailsPage";
 import PublicRoute from "@/components/PublicRoute";
 import ProtectedRoute from "@/components/ProtectedRoute";
+import NotFound from "@/pages/NotFound";
 
 
 
@@ -71,7 +72,8 @@ export const Router = createBrowserRouter([
 
         ]
     },
-
-
-
+    {
+        path: "*",
+        element: <NotFound />
+    }
 ])
