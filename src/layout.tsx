@@ -1,6 +1,7 @@
 import { Outlet } from "react-router-dom";
 import Header from "./app/layout-component/header";
 import SideBar from "./app/layout-component/sidebar";
+import ChatBot from "./components/partials/chatbot/ChatBot";
 
 const Layout = () => {
     return (
@@ -24,6 +25,9 @@ const Layout = () => {
                     </div>
                 </main>
             </div>
+
+            {/* Chatbot - Available on all pages */}
+            <ChatBot />
         </div>
     );
 }
