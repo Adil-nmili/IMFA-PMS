@@ -35,7 +35,7 @@ export default function DetailsPage() {
               <p className="text-gray-500">{room.numRoom}</p>
             </div>
             <p className="text-lg font-semibold text-[#967e62]">
-              Starts from: {room.price} MAD
+              Starts from: {typeof room.price === 'number' ? room.price.toLocaleString('fr-MA') : parseFloat(String(room.price).replace(/[^0-9.-]/g, '')).toLocaleString('fr-MA') || '0'} DH
             </p>
           </div>
 

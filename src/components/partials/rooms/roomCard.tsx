@@ -74,7 +74,9 @@ const RoomCard: React.FC<RoomCardProps> = ({
             <p className="text-sm text-muted-foreground capitalize">{room.status}</p>
           </div>
           <div className="text-right">
-            <span className="text-lg font-bold text-primary">{Number(room.price).toLocaleString()}</span>
+            <span className="text-lg font-bold text-primary">
+              {typeof room.price === 'number' ? room.price.toLocaleString('fr-MA') : parseFloat(String(room.price).replace(/[^0-9.-]/g, '')).toLocaleString('fr-MA') || '0'}
+            </span>
             <span className="text-xs text-muted-foreground block">DH/night</span>
           </div>
         </div>

@@ -3,11 +3,13 @@ import { useRoomStore } from "@/stores/roomsStore";
 import { Link } from 'react-router-dom';
 import { Button } from "@/components/ui/button";
 import { X, ChevronDown, ShoppingCart } from "lucide-react";
+import ReservationModal from '../modals/reservationModal';
+import GlobalModal from '@/components/shared-component/globalModal';
 
 const RoomFooter = () => {
   const { selectedRooms, rooms, clearSelectedRooms, toogleRoom } = useRoomStore();
   const [isCollapsed, setIsCollapsed] = useState(false);
-
+  const [isReservationModalOpen, setIsReservationModalOpen] = useState(false);
   const selectedRoomsData = rooms.filter((room) => selectedRooms.includes(room.id));
 
   // Calculate total price
@@ -15,18 +17,23 @@ const RoomFooter = () => {
 
   useEffect(() => {
     const total = selectedRoomsData.reduce((sum, room) => {
-      const price = Number(room.price) || 0;
+      // Handle different price formats
+      const price = typeof room.price === 'number' ? room.price : parseFloat(String(room.price).replace(/[^0-9.-]/g, '')) || 0;
       return sum + price;
     }, 0);
     setSelectedRoomsTotal(total);
-  }, [selectedRooms, rooms])
+  }, [selectedRooms, rooms, selectedRoomsData])
+
+  const handleDisplayBookingModal = () => {
+    setIsReservationModalOpen(true);
+  }
 
   if (selectedRooms.length === 0) return null;
 
   // Collapsed State (Small floating button)
   if (isCollapsed) {
     return (
-      <div className="fixed bottom-6 right-6 z-50 animate-in fade-in zoom-in duration-300">
+      <div className="fixed bottom-4 right-4 md:bottom-6 md:right-6 z-40 animate-in fade-in zoom-in duration-300">
         <Button
           onClick={() => setIsCollapsed(false)}
           className="rounded-full h-14 w-14 shadow-xl bg-primary text-primary-foreground hover:bg-primary/90 relative"
@@ -42,7 +49,7 @@ const RoomFooter = () => {
 
   // Expanded State
   return (
-    <div className="fixed bottom-6 right-6 z-50 flex flex-col items-end gap-2 animate-in slide-in-from-bottom-4 duration-300">
+    <div className="fixed bottom-2 right-2 left-2 md:bottom-6 md:right-6 md:left-auto z-40 flex flex-col items-end gap-2 animate-in slide-in-from-bottom-4 duration-300">
       {/* Collapse Button */}
       <Button
         variant="secondary"
@@ -55,23 +62,23 @@ const RoomFooter = () => {
       </Button>
 
       {/* Main Footer Content */}
-      <div className="bg-neutral-900 dark:bg-neutral-800 text-white rounded-2xl shadow-2xl min-w-[380px] md:min-w-[480px] overflow-hidden">
+      <div className="bg-neutral-900 dark:bg-neutral-800 text-white rounded-2xl shadow-2xl w-full md:min-w-[420px] md:max-w-[520px] overflow-hidden">
         {/* Header */}
-        <div className="px-4 py-3 border-b border-white/10 flex items-center justify-between">
-          <div className="flex items-center gap-2">
-            <span className="font-bold text-base">Selection</span>
+        <div className="px-3 md:px-4 py-3 border-b border-white/10 flex items-center justify-between gap-2">
+          <div className="flex items-center gap-2 min-w-0">
+            <span className="font-bold text-sm md:text-base">Selection</span>
             <span className="bg-white/20 px-2 py-0.5 rounded-full text-xs font-medium">
               {selectedRooms.length} {selectedRooms.length === 1 ? 'item' : 'items'}
             </span>
           </div>
-          <span className="font-bold text-2xl">
-            {selectedRoomsTotal.toLocaleString()} DH
+          <span className="font-bold text-lg md:text-2xl flex-shrink-0">
+            {selectedRoomsTotal.toLocaleString('fr-MA')} DH
           </span>
         </div>
 
         {/* List of selected rooms with images - Fixed scroll */}
-        <div className="max-h-[280px] overflow-y-auto">
-          <div className="px-4 py-2 space-y-2">
+        <div className="max-h-[240px] md:max-h-[280px] overflow-y-auto">
+          <div className="px-3 md:px-4 py-2 space-y-2">
             {selectedRoomsData.map(room => (
               <div
                 key={room.id}
@@ -108,7 +115,7 @@ const RoomFooter = () => {
                     </div>
                     <div className="flex flex-col items-end flex-shrink-0">
                       <span className="font-semibold text-sm whitespace-nowrap">
-                        {Number(room.price) || 0} DH
+                        {typeof room.price === 'number' ? room.price : parseFloat(String(room.price).replace(/[^0-9.-]/g, '')) || 0} DH
                       </span>
                       <span className="text-xs text-white/40">per night</span>
                     </div>
@@ -132,21 +139,21 @@ const RoomFooter = () => {
         </div>
 
         {/* Actions */}
-        <div className="px-4 py-3 border-t border-white/10 flex gap-2">
+        <div className="px-3 md:px-4 py-3 border-t border-white/10 flex gap-2">
           <Button
             asChild
-            className="flex-1 bg-white text-neutral-900 hover:bg-white/90 font-semibold shadow-sm"
+            className="flex-1 bg-white text-neutral-900 hover:bg-white/90 font-semibold shadow-sm text-sm md:text-base"
           >
-            <Link to="/reservation">
-              Book Now
-            </Link>
+            <GlobalModal >
+              <ReservationModal/>
+            </GlobalModal>
           </Button>
           <Button
             onClick={clearSelectedRooms}
             variant="ghost"
-            className="border border-white/30 hover:bg-white/10 text-white hover:text-white px-4"
+            className="border border-white/30 hover:bg-white/10 text-white hover:text-white px-3 md:px-4 text-sm md:text-base whitespace-nowrap"
           >
-            Clear All
+            Clear
           </Button>
         </div>
       </div>

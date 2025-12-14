@@ -34,27 +34,27 @@ const ReservationModal: React.FC = () => {
 <TabsList className="grid w-full grid-cols-3 bg-transparent rounded-none">
           <TabsTrigger
             value="client"
-            className={`flex items-center justify-center gap-2 rounded-b-2xl rounded-t-none p-4 transition-all ${
+            className={`flex items-center justify-center gap-2 rounded-b-2xl rounded-t-none p-2 transition-all ${
               activeTab === "client" ? "text-primary font-semibold" : "text-gray-500 "
             }`}
           >
-            <FiUser className="text-4xl" style={{ fontSize: '2rem' }} />
+            <FiUser className="text-lg"  />
             <span>Informations du client</span>
           </TabsTrigger>
 
           <TabsTrigger
             value="sejour"
-            className={`flex items-center justify-center gap-2 rounded-b-2xl rounded-t-none p-4 transition-all ${
+            className={`flex items-center justify-center gap-2 rounded-b-2xl rounded-t-none p-2 transition-all ${
               activeTab === "sejour" ? "text-primary font-semibold" : "text-gray-500"
             }`}
           >
             <FiCalendar className="text-lg" />
-            <span>Détails du séjour</span>
+            <span className="text-sm">Détails du séjour</span>
           </TabsTrigger>
 
           <TabsTrigger
             value="confirmation"
-            className={`flex items-center justify-center gap-2 rounded-b-2xl rounded-t-none p-4 transition-all ${
+            className={`flex items-center justify-center gap-2 rounded-b-2xl rounded-t-none p-2 transition-all ${
               activeTab === "confirmation" ? "text-primary font-semibold" : "text-gray-500"
             }`}
           >
@@ -63,7 +63,7 @@ const ReservationModal: React.FC = () => {
           </TabsTrigger>
         </TabsList>
         <Form>
-        <TabsContent value="client" className="mt-4 p-8 bg-white/70 rounded-xl">
+        <TabsContent value="client" className="p-4 bg-white/70 rounded-xl">
           <ClientTab />
         </TabsContent>
         <TabsContent value="sejour" className="mt-4 p-8 bg-white/70 rounded-xl">

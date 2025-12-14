@@ -1,12 +1,9 @@
-import React, { useEffect, useState, type JSX } from "react";
+import React, { useEffect, useState } from "react";
 import { motion } from "framer-motion";
 import { Tabs, TabsList, TabsTrigger, TabsContent } from "@/components/ui/tabs";
 import { ChevronLeft, ChevronRight } from "lucide-react";
 import { Button } from "@/components/ui/button";
 
-import managers from "@/constants/managers.json";
-import admins from "@/constants/admins.json";
-import receptionists from "@/constants/receptionists.json";
 import type { UserType } from "@/types/UserType";
 import UserCard from "@/components/partials/cards/userCard";
 import type { Props } from "@/types/propsType";
@@ -35,9 +32,19 @@ const RolesSlider: React.FC<Props> = ({ setSelectedUser }) => {
   const [currentRole, setCurrentRole] = useState<"manager" | "admin" | "receptionist">("manager");
 
   const roles: Record<"manager" | "admin" | "receptionist", UserType[]> = {
-    manager: rolesUsers?.filter((ru : any)=>(ru?.role).toLowerCase() === "manager"),
-    admin: rolesUsers?.filter((ru : any)=>(ru?.role).toLowerCase() === "admin"),
-    receptionist: rolesUsers?.filter((ru:any)=>(ru?.role).toLowerCase() === "receptioniste"),
+    manager: rolesUsers?.filter((ru : any)=>{
+      console.log('User:', ru?.nomEmp, 'role_id:', ru?.role_id, 'role:', ru?.role, 'roles:', ru?.roles);
+      // Check role string or role_id (1 = admin, 2 = manager, 3 = receptionist)
+      return (ru?.role)?.toLowerCase() === "manager" || ru?.role_id === 2;
+    }) || [],
+    admin: rolesUsers?.filter((ru : any)=>{
+      // Check role string or role_id (1 = admin, 2 = manager, 3 = receptionist)
+      return (ru?.role)?.toLowerCase() === "admin" || ru?.role_id === 1;
+    }) || [],
+    receptionist: rolesUsers?.filter((ru:any)=>{
+      // Check role string or role_id (1 = admin, 2 = manager, 3 = receptionist)
+      return (ru?.role)?.toLowerCase() === "receptionist" || ru?.role_id === 3;
+    }) || [],
   };
 
   const handleSlide = (
