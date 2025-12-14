@@ -127,4 +127,44 @@
       -ms-overflow-style: none;
       scrollbar-width: none;
   }
+  
+  /* Custom Scrollbar Styles */
+  .scrollbar-thin::-webkit-scrollbar {
+    width: 6px;
+    height: 6px;
+  }
+  
+  .scrollbar-thin::-webkit-scrollbar-track {
+    background: transparent;
+    border-radius: 10px;
+  }
+  
+  .scrollbar-track-gray-100::-webkit-scrollbar-track {
+    background: rgb(243 244 246);
+  }
+  
+  .scrollbar-thin::-webkit-scrollbar-thumb {
+    background: rgb(209 213 219);
+    border-radius: 10px;
+    transition: background 0.2s;
+  }
+  
+  .scrollbar-thumb-gray-300::-webkit-scrollbar-thumb {
+    background: rgb(209 213 219);
+  }
+  
+  .scrollbar-thin::-webkit-scrollbar-thumb:hover,
+  .hover\:scrollbar-thumb-gray-400::-webkit-scrollbar-thumb:hover {
+    background: rgb(156 163 175);
+  }
+  
+  /* Firefox */
+  .scrollbar-thin {
+    scrollbar-width: thin;
+    scrollbar-color: rgb(209 213 219) transparent;
+  }
+  
+  .scrollbar-track-gray-100 {
+    scrollbar-color: rgb(209 213 219) rgb(243 244 246);
+  }
 }

@@ -4,6 +4,7 @@ import SideBar from "./app/layout-component/sidebar";
 import ChatBot from "./components/partials/chatbot/ChatBot";
 
 const Layout = () => {
+    
     return (
         <div className="flex h-screen w-full overflow-hidden bg-neutral-50 dark:bg-neutral-900">
             {/* Sidebar */}

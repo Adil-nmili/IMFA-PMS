@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import { useNavigate } from "react-router-dom";
 import {
   Table,
   TableBody,
@@ -174,6 +175,7 @@ for (let i = 6; i <= 25; i++) {
 }
 
 const ReservationPage = () => {
+  const navigate = useNavigate();
   const [searchTerm, setSearchTerm] = useState("");
   const [statusFilter, setStatusFilter] = useState<string>("all");
   const [currentPage, setCurrentPage] = useState(1);
@@ -224,7 +226,10 @@ const ReservationPage = () => {
             Manage your hotel reservations and bookings.
           </p>
         </div>
-        <Button className="bg-primary hover:bg-primary/90">
+        <Button 
+          className="bg-primary hover:bg-primary/90"
+          onClick={() => navigate('/reservations/new')}
+        >
           <Plus className="mr-2 h-4 w-4" /> New Reservation
         </Button>
       </div>
