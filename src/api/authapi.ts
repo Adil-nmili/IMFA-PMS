@@ -1,7 +1,7 @@
 
 import { supabase } from "@/lib/supabaseClient";
 
-import type { ReservationFormValues } from "@/types/ReservationFormValuesType";
+// import type { ReservationFormValues } from "@/types/ReservationFormValuesType";
 
 export const loginByRFID = async (rfidId: string,nomEmp:string) => {
   const { data, error } = await supabase
@@ -22,7 +22,7 @@ export const loginByCodePin = async (code_pin:string,nomEmp:string)=>{
 }
 
 export const getAllUsers = async () => {
-  const { data, error } = await supabase.from("users").select("nomEmp,image,role");
+  const { data, error } = await supabase.from("users").select("nomEmp,image,role_id");
   if (error) throw error;
   return data;
 };

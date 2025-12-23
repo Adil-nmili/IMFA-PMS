@@ -9,6 +9,8 @@ services:
     environment:
       - VITE_SUPABASE_URL=${VITE_SUPABASE_URL}
       - VITE_SUPABASE_ANON_KEY=${VITE_SUPABASE_ANON_KEY}
+      - CHOKIDAR_USEPOLLING=true
     volumes:
-        - .:/app:cached
+      - .:/app
+      - /app/node_modules
     command: ["npm", "run", "dev"]

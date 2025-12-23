@@ -4,9 +4,9 @@ import { Tabs, TabsList, TabsTrigger, TabsContent } from "@/components/ui/tabs";
 import { ChevronLeft, ChevronRight } from "lucide-react";
 import { Button } from "@/components/ui/button";
 
-import managers from "@/constants/managers.json";
-import admins from "@/constants/admins.json";
-import receptionists from "@/constants/receptionists.json";
+// import managers from "@/constants/managers.json";
+// import admins from "@/constants/admins.json";
+// import receptionists from "@/constants/receptionists.json";
 import type { UserType } from "@/types/UserType";
 import UserCard from "@/components/partials/cards/userCard";
 import type { Props } from "@/types/propsType";
@@ -17,6 +17,12 @@ import { getAllUsers } from "@/api/authapi";
 const RolesSlider: React.FC<Props> = ({ setSelectedUser }) => {
 
   const [rolesUsers,setRolesUsers] = useState<UserType| any>([]);
+
+  const roleIds = {
+    admin: 3,
+    manager: 1,
+    receptionist: 2,
+  };
 
   const getUsers = async()=>{
     const response = await getAllUsers();
@@ -33,11 +39,14 @@ const RolesSlider: React.FC<Props> = ({ setSelectedUser }) => {
     receptionist: 0,
   });
   const [currentRole, setCurrentRole] = useState<"manager" | "admin" | "receptionist">("manager");
-
+  // here rolesUsers is an int of the "role_id" column from the users table 
   const roles: Record<"manager" | "admin" | "receptionist", UserType[]> = {
-    manager: rolesUsers?.filter((ru : any)=>(ru?.role).toLowerCase() === "manager"),
-    admin: rolesUsers?.filter((ru : any)=>(ru?.role).toLowerCase() === "admin"),
-    receptionist: rolesUsers?.filter((ru:any)=>(ru?.role).toLowerCase() === "receptioniste"),
+    // manager: rolesUsers?.filter((ru : any)=>(ru?.role).toLowerCase() === "manager"),
+    // admin: rolesUsers?.filter((ru : any)=>(ru?.role).toLowerCase() === "admin"),
+    // receptionist: rolesUsers?.filter((ru:any)=>(ru?.role).toLowerCase() === "receptioniste"),
+    manager: rolesUsers?.filter((ru : any)=>(ru?.role_id) === roleIds.manager),
+    admin: rolesUsers?.filter((ru : any)=>(ru?.role_id) ===  roleIds.admin),
+    receptionist: rolesUsers?.filter((ru:any)=>(ru?.role_id) === roleIds.receptionist),
   };
 
   const handleSlide = (
