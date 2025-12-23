@@ -4,7 +4,7 @@ import { useState } from "react";
 import { toast } from "sonner";
 import useAppState from '@/stores/authStore'
 import { useNavigate } from "react-router-dom";
-import { ACCUEIL } from "@/router/router";
+import {  RESERVATIONS } from "@/router/router";
 
 
 function CodePin(nomEmp:string|any) {
@@ -31,7 +31,7 @@ function CodePin(nomEmp:string|any) {
         localStorage?.setItem("access_token",tokenResponse?.session?.access_token)
           login(userResponse,tokenResponse?.session?.access_token);
           toast.success("Connexion réussie !");
-          navigate(ACCUEIL)
+          navigate(RESERVATIONS)
         }
         
       } else {

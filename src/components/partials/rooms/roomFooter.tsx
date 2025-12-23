@@ -18,7 +18,7 @@ const RoomFooter = () => {
   useEffect(() => {
     const total = selectedRoomsData.reduce((sum, room) => {
       // Handle different price formats
-      const price = typeof room.price === 'number' ? room.price : parseFloat(String(room.price).replace(/[^0-9.-]/g, '')) || 0;
+      const price = typeof room.pricePerNight === 'number' ? room.pricePerNight : parseFloat(String(room.pricePerNight).replace(/[^0-9.-]/g, '')) || 0;
       return sum + price;
     }, 0);
     setSelectedRoomsTotal(total);
@@ -115,7 +115,7 @@ const RoomFooter = () => {
                     </div>
                     <div className="flex flex-col items-end flex-shrink-0">
                       <span className="font-semibold text-sm whitespace-nowrap">
-                        {typeof room.price === 'number' ? room.price : parseFloat(String(room.price).replace(/[^0-9.-]/g, '')) || 0} DH
+                        {typeof room.pricePerNight === 'number' ? room.pricePerNight : parseFloat(String(room.pricePerNight).replace(/[^0-9.-]/g, '')) || 0} DH
                       </span>
                       <span className="text-xs text-white/40">per night</span>
                     </div>

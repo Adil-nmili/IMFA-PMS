@@ -4,9 +4,9 @@ import { Card, CardContent } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { ArrowLeft, Check, UserCircle, BedDouble, CheckCircle } from "lucide-react";
 import { useNavigate } from "react-router-dom";
-import { ClientTab } from "@/components/partials/reservationTabs/clientTab.reservation";
 import { SejourTab } from "@/components/partials/reservationTabs/sejourTab.reservation";
 import ConfirmationTab from "@/components/partials/reservationTabs/confirmation.reservation";
+import { ClientTab } from "@/components/partials/reservationTabs/clientTab.reservation";
 
 const NewReservationPage: React.FC = () => {
   const navigate = useNavigate();
@@ -81,7 +81,7 @@ const NewReservationPage: React.FC = () => {
         </div>
 
         {/* Progress Indicator */}
-        <Card className="mb-6 border-primary/10 shadow-sm">
+        <Card className="mb-6 border-primary/10 shadow-sm p-0">
           <CardContent className="p-6">
             <div className="flex items-center justify-between">
               {tabs.map((tab, index) => {
@@ -95,7 +95,7 @@ const NewReservationPage: React.FC = () => {
                     <div className="flex flex-col items-center flex-1">
                       <button
                         onClick={() => setActiveTab(tab.value)}
-                        className={`w-12 h-12 rounded-full flex items-center justify-center transition-all mb-2 ${
+                        className={`w-8 h-8 rounded-full flex items-center justify-center transition-all mb-2 ${
                           isCompleted
                             ? "bg-green-500 text-white shadow-lg"
                             : isCurrent
@@ -150,7 +150,7 @@ const NewReservationPage: React.FC = () => {
 
           <TabsContent value="client" className="space-y-4">
             <Card className="border-none shadow-lg">
-              <CardContent className="p-6">
+              <CardContent className="">
                 <ClientTab />
               </CardContent>
             </Card>

@@ -23,7 +23,7 @@ export default function BillingPage() {
   }
 
   return (
-    <div className="flex flex-col gap-2 border rounded-lg p-3">
+    <div className="flex flex-col gap-2  p-3">
       <BillingCard />
       {/* Table */}
       <BillingTable columns={columns} data={invoices} />

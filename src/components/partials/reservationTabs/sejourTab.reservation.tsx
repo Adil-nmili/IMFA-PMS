@@ -102,9 +102,9 @@ export const SejourTab: React.FC = () => {
   ).length;
 
   return (
-    <div className="space-y-8">
+    <div className="space-y-8 p-0">
       {/* Header Section */}
-      <div className="bg-gradient-to-r from-amber-50 to-orange-50 rounded-2xl p-6 border border-amber-200">
+      <div className="bg-gradient-to-r from-amber-50 to-orange-50 rounded-2xl p-4 border border-amber-200">
         <div className="flex items-center gap-4">
           <div className="p-3 bg-amber-100 rounded-xl">
             <CalendarIcon className="h-8 w-8 text-amber-700" />

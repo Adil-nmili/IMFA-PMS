@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { cn } from "@/lib/utils";
 import type { Room } from "@/types/room";
 import { GoPeople } from "react-icons/go";
@@ -9,6 +9,8 @@ import { MdArrowOutward } from "react-icons/md";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
 import { Link } from "react-router-dom";
+import { RoomStatusBadge } from "./roomStatusBadge";
+import { supabase } from "@/lib/supabaseClient";
 
 interface RoomCardProps {
   room: Room;
@@ -23,19 +25,42 @@ const RoomCard: React.FC<RoomCardProps> = ({
   onToggleSelect,
   className,
 }) => {
+  const [isAvailable, setIsAvailable] = React.useState<boolean | null>(null);
+  const [error, setError] = React.useState<string | null>(null);
+  useEffect(() => {
+  const checkRoomStatus = async () => {
+        const today = new Date().toISOString().split("T")[0];
+        const { data, error } = await supabase.rpc("is_room_available_on", {
+          p_room_id: room.id,
+          p_date: today,
+        });
+  
+        if (error) setError(error.message);
+        else setIsAvailable(data as boolean);
+      };
+
+      checkRoomStatus();
+  }, [room.id]);
+
+
   return (
     <div
       className={cn(
         "group relative overflow-hidden transition-all duration-300 hover:shadow-lg border border-border bg-card rounded-xl",
         isSelected ? "ring-2 ring-primary border-primary" : "hover:border-primary/50",
+        isAvailable === true ? "opacity-100" : "opacity-50 cursor-not-allowed",
         className
       )}
     >
       {/* Image Section */}
       <div
-        className="relative aspect-[4/3] overflow-hidden cursor-pointer"
+        className={cn("relative aspect-[4/3] overflow-hidden cursor-pointer", isAvailable === false && "pointer-events-none")}
         onClick={() => onToggleSelect?.(room.id)}
       >
+        <div className="absolute top-2 left-2">
+
+        {<RoomStatusBadge roomId={room.id} />}
+        </div>
         {room.image ? (
           <img
             src={room.image}
@@ -75,7 +100,7 @@ const RoomCard: React.FC<RoomCardProps> = ({
           </div>
           <div className="text-right">
             <span className="text-lg font-bold text-primary">
-              {typeof room.price === 'number' ? room.price.toLocaleString('fr-MA') : parseFloat(String(room.price).replace(/[^0-9.-]/g, '')).toLocaleString('fr-MA') || '0'}
+              {typeof room.pricePerNight === 'number' ? room.pricePerNight.toLocaleString('fr-MA') : parseFloat(String(room.pricePerNight).replace(/[^0-9.-]/g, '')).toLocaleString('fr-MA') || '0'}
             </span>
             <span className="text-xs text-muted-foreground block">DH/night</span>
           </div>

@@ -12,7 +12,7 @@ import {
   Users,
 } from "lucide-react";
 import { Link, useLocation, useNavigate } from "react-router-dom";
-import { ACCUEIL, RESERVATIONS, ROOMS } from "@/router/router";
+import { ACCUEIL, RESERVATIONS, ROOMS, SETTINGS } from "@/router/router";
 import { logout } from "@/api/authapi";
 import { cn } from "@/lib/utils";
 import {
@@ -50,16 +50,13 @@ const SideBar = () => {
   };
 
   const topMenuItems: MenuItem[] = [
-    { icon: LayoutDashboard, name: "Dashboard", path: ACCUEIL },
     { icon: CalendarCheck, name: "Reservations", path: RESERVATIONS },
     { icon: Bed, name: "Rooms", path: ROOMS },
-    { icon: CheckCircle, name: "Checks", path: "/checks" },
     { icon: Wallet, name: "Billing", path: "/billing" },
-    { icon: Users, name: "Guests", path: "/guests" },
   ];
 
   const bottomMenuItems: MenuItem[] = [
-    { icon: Cog, name: "Settings", path: "/settings" },
+    { icon: Cog, name: "Settings", path: SETTINGS },
     { icon: LogOut, name: "Logout", action: () => setShowLogoutDialog(true) },
   ];
 

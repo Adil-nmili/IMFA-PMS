@@ -12,18 +12,21 @@ import PublicRoute from "@/components/PublicRoute";
 import ProtectedRoute from "@/components/ProtectedRoute";
 import NotFound from "@/pages/NotFound";
 import BillingPage from "@/pages/billingPage";
+import SettingsPage from "@/pages/settings";
+import RerservationDetails from "@/pages/reservationDetails";
 //import DetailsPage from "@/components/rooms/detailsPage";
 
 
 
 export const LOGINPAGE = "/";
 export const ACCUEIL = "/accueil";
+export const RESERVATION_DETAILS = "/reservations/1";
 export const RESERVATIONS = "/reservations"
 export const NEW_RESERVATION = "/reservations/new"
 export const ROOMS = "/rooms"
 export const DETAILSPAGE = "/rooms/:id"
-
-export const BILLING="/billing"
+export const SETTINGS = '/settings'
+export const BILLING = "/billing"
 
 export const Router = createBrowserRouter([
     {
@@ -41,14 +44,7 @@ export const Router = createBrowserRouter([
             {
                 element: <Layout />,
                 children: [
-                    {
-                        path: ACCUEIL,
-                        element: <Dashboard />
-                    },
-                    {
-                        path: RESERVATIONS,
-                        element: <ReservationPage />
-                    },
+
                     {
                         path: NEW_RESERVATION,
                         element: <NewReservationPage />
@@ -63,32 +59,34 @@ export const Router = createBrowserRouter([
                         element: <DetailsPage />
                     },
                     {
+                        path: SETTINGS,
+                        element: <SettingsPage />
+                    },
+                    {
                         path: RESERVATIONS,
                         element: <ReservationPage />
                     },
                     {
-                        path: '/chambres',
-                        element: <>CHAMBRES
-
-                        </>
+                        path:RESERVATION_DETAILS,
+                        element:<RerservationDetails />
                     },
-                     {
-                path: DETAILSPAGE,
-                element:<DetailsPage />
-            },
-            {
-                path: BILLING,
-                element:<BillingPage />
-            }
-
+                    {
+                        path: DETAILSPAGE,
+                        element: <DetailsPage />
+                    },
+                    {
+                        path: BILLING,
+                        element: <BillingPage />
+                    },
+                    {
+                        path: "*",
+                        element: <NotFound />
+                    }
                 ]
             },
-           
-            
+
+
         ]
     },
-    {
-        path: "*",
-        element: <NotFound />
-    }
+
 ])

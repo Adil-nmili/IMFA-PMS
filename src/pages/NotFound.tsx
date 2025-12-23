@@ -1,10 +1,11 @@
 import { Button } from "@/components/ui/button";
 import { Link } from "react-router-dom";
 import { Home, ArrowLeft, Search } from "lucide-react";
+import { RESERVATIONS } from "@/router/router";
 
 const NotFound = () => {
     return (
-        <div className="flex flex-col items-center justify-center min-h-screen bg-background text-foreground p-4">
+        <div className="h-[50vh] m-auto w-[50vw] flex flex-col items-center justify-center  text-foreground p-10">
             <div className="text-center space-y-6 max-w-md">
                 <div className="relative">
                     <h1 className="text-9xl font-bold text-primary/20">404</h1>
@@ -22,9 +23,9 @@ const NotFound = () => {
 
                 <div className="flex flex-col sm:flex-row gap-3 justify-center pt-4">
                     <Button asChild variant="default" className="gap-2">
-                        <Link to="/accueil">
+                        <Link to={RESERVATIONS}>    
                             <Home className="w-4 h-4" />
-                            Go to Dashboard
+                            Go to Reservation Home
                         </Link>
                     </Button>
                     <Button asChild variant="outline" className="gap-2">

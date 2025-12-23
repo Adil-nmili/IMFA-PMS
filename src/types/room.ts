@@ -3,7 +3,7 @@ export interface Room{
    numRoom:number;
    type:string;
    status:string;
-   price:number;
+   pricePerNight:number;   
    capacity:number;
    surface: number;
    image:string;

@@ -270,8 +270,8 @@ export const ClientTab: React.FC = () => {
           {/* Form Grid */}
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
             {/* Personal Information Card */}
-            <Card className={`border-2 ${activeSection === 'personal' ? 'border-primary/30 shadow-lg shadow-primary/10' : 'border-gray-200'} transition-all duration-300`}>
-              <CardContent className="p-4 h-[400px] ">
+            <Card className={`border-2 p-0 ${activeSection === 'personal' ? 'border-primary/30 shadow-lg shadow-primary/10' : 'border-gray-200'} transition-all duration-300`}>
+              <CardContent className="p-4 h-fit ">
                 <div className="flex items-center gap-3 mb-4 pb-3 border-b border-gray-100">
                   <div className="p-2 bg-primary/10 rounded-lg">
                     <UserIcon className="h-5 w-5 text-primary" />
@@ -282,7 +282,7 @@ export const ClientTab: React.FC = () => {
                   </div>
                 </div>
 
-                <ScrollArea className="h-[300px] pr-3 overflow-y-auto">
+                <ScrollArea className="h-full pr-3 overflow-y-auto">
                   <div className="space-y-4">
                     <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                       <FormField
@@ -476,7 +476,7 @@ export const ClientTab: React.FC = () => {
             </Card>
 
             {/* Contact Information Card */}
-            <Card className={`border-2 ${activeSection === 'contact' ? 'border-primary/30 shadow-lg shadow-primary/10' : 'border-gray-200'} transition-all duration-300`}>
+            <Card className={`border-2 p-0 ${activeSection === 'contact' ? 'border-primary/30 shadow-lg shadow-primary/10' : 'border-gray-200'} transition-all duration-300`}>
               <CardContent className="p-4">
                 <div className="flex items-center gap-3 mb-4 pb-3 border-b border-gray-100">
                   <div className="p-2 bg-primary/10 rounded-lg">
@@ -488,7 +488,7 @@ export const ClientTab: React.FC = () => {
                   </div>
                 </div>
 
-                <ScrollArea className="h-[500px] pr-3">
+                <ScrollArea className="h-full pr-3">
                   <div className="space-y-4">
                     <FormField
                       control={form.control}
@@ -627,7 +627,7 @@ export const ClientTab: React.FC = () => {
           </div>
 
           {/* Form Status Footer */}
-          <Card className="border-gray-200">
+          <Card className="border-gray-200 p-0">
             <CardContent className="p-4">
               <div className="flex items-center justify-between flex-col lg:flex-row gap-4">
                 <div className="flex items-center gap-3">
