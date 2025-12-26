@@ -1,56 +1,36 @@
 import { User } from "lucide-react";
+import { useReservationsStore } from "@/stores/reservationsStore";
+import { useClientStore } from "@/stores/clientsStore";
+import { useEffect } from "react";
 
-const clients: Client[] = [
-  {
-    nomClient: "Ahmed",
-    telClient: "061142569",
-    emailClient: "Ahmedr@gamil.com",
-    cinClient: "Rf258792",
-    statutSociale: "Celibataire",
-    adresseClient: "Oujda",
-    dateNaissanceClient: new Date("2004-06-05"),
-  },
-];
-
-const reservations: Reservation[] = [
-  {
-    idRes: "RF52828",
-    statut: "En attente",
-    dateDebut: new Date("2024-09-01"),
-    dateFin: new Date("2024-09-03"),
-    nbNights: 2,
-    roomIndex: 0,
-    clientIndex: 0,
-  },
-];
-interface Client {
-  nomClient: string;
-  telClient: string;
-  emailClient: string;
-  cinClient: string;
-  statutSociale: string;
-  adresseClient: string;
-  dateNaissanceClient: Date;
-}
-
-interface Reservation {
-  idRes: string;
-  statut: string;
-  dateDebut: Date;
-  dateFin: Date;
-  nbNights: number;
-  roomIndex: number;
-  clientIndex: number;
-}
 export const ClientReservationCard = () => {
+  const store = useClientStore();
+  const clients = store.client;
+  const fetchClients = store.fetchClient;
+  const loading = store.loading;
+  const reservations = useReservationsStore((state) => state.reservation);
+
+  useEffect(() => {
+    fetchClients();
+  }, []);
+
+  if (loading) {
+    return <div className="p-4">Chargement...</div>;
+  }
+
   return (
     <div>
       {reservations.map((Reservation) => {
-        const client: Client = clients[Reservation.clientIndex];
+        const client = clients.find(
+          (client) => client.id === Reservation.clientId
+        );
 
+        if (!client) {
+          return null;
+        }
         return (
           <div
-            key={Reservation.idRes}
+            key={Reservation.id}
             className="bg-white rounded-2xl shadow-lg border border-[#E9E6E1] overflow-hidden h-full"
           >
             {/* header+editButton */}
@@ -74,7 +54,7 @@ export const ClientReservationCard = () => {
                   Nom complet
                 </p>
                 <p className="text-xs font-bold text-[#3F3124]">
-                  {client.nomClient}
+                  {client.nom} {client.prenom}
                 </p>
               </div>
 
@@ -86,7 +66,7 @@ export const ClientReservationCard = () => {
                     Téléphone
                   </span>
                   <span className="font-semibold text-[#3F3124] text-[11px] block">
-                    {client.telClient}
+                    {client.telephone}
                   </span>
                 </div>
                 {/* CIN div*/}
@@ -95,7 +75,7 @@ export const ClientReservationCard = () => {
                     CIN
                   </span>
                   <span className="font-semibold text-[#3F3124] text-[11px] block uppercase">
-                    {client.cinClient}
+                    {client.CIN}
                   </span>
                 </div>
 
@@ -105,7 +85,7 @@ export const ClientReservationCard = () => {
                     Email
                   </span>
                   <span className="font-semibold text-[#3F3124] text-[11px] block break-all">
-                    {client.emailClient}
+                    {client.email}
                   </span>
                 </div>
 
@@ -115,7 +95,7 @@ export const ClientReservationCard = () => {
                     Naissance
                   </span>
                   <span className="font-semibold text-[#3F3124] text-[11px] block">
-                    {client.dateNaissanceClient.toLocaleDateString()}
+                    {client.date_naissance}
                   </span>
                 </div>
 
@@ -125,7 +105,7 @@ export const ClientReservationCard = () => {
                     Statut
                   </span>
                   <span className="font-semibold text-[#3F3124] text-[11px] block">
-                    {client.statutSociale}
+                    {client.statut_social}
                   </span>
                 </div>
 
@@ -135,7 +115,7 @@ export const ClientReservationCard = () => {
                     Adresse
                   </span>
                   <span className="font-semibold text-[#3F3124] text-[11px] block">
-                    {client.adresseClient}
+                    {client.adresse}
                   </span>
                 </div>
               </div>
